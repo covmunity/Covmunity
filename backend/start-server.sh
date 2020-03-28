@@ -11,10 +11,13 @@ PORT=${PORT:-8888}
 export FLASK_APP=api
 export FLASK_ENV=${FLASK_ENV:-development}
 
+
 source ./scripts/python.sh
 enable_venv
 
 if [ "$FLASK_ENV"="development" ]; then
+export OAUTHLIB_INSECURE_TRANSPORT=1
+
 echo -e "\nStart database:\n"
 docker-compose up -d
 flask db wait

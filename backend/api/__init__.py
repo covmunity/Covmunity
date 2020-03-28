@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, jsonify
 
-from . import status, report, volunteer, account
+from . import status, report, volunteer, account, auth
 from .db import db, db_cli
 
 
@@ -22,8 +22,8 @@ def create_app(test_config=None):
     app.cli.add_command(db_cli)
 
     if test_config is None:
-        # load the instance config, if it exists, when not testing
-        app.config.from_pyfile('config.py', silent=True)
+        # load the instance config file indicated by the environment variable
+        app.config.from_envvar('COVMUNITY_SETTINGS', silent=True)
     else:
         # load the test config if passed in
         app.config.from_mapping(test_config)
@@ -35,8 +35,12 @@ def create_app(test_config=None):
         pass
 
     # register blueprints
+    app.register_blueprint(status.bp)
     app.register_blueprint(report.bp)
     app.register_blueprint(volunteer.bp)
     app.register_blueprint(account.bp)
+
+    # register auth providers
+    app.register_blueprint(auth.google, url_prefix="/auth")
 
     return app
