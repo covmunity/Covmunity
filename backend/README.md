@@ -28,8 +28,10 @@ Once started, navigate to <http://127.0.0.1:8888>.
 
 Export the follwing environment variables before running `start-server.sh`.
 
-* `HOST`
-* `PORT`
-* `FLASK_ENV`
+* `HOST` (defaults to `localhost`)
+* `PORT` (defaults to `8888`)
+* `FLASK_ENV` (defaults to `development`)
+* `COVMUNITY_SETTINGS` can be set to indicate an absolute path with a file witha
+  additional Flask options.
 
 Nothing more :grin:
