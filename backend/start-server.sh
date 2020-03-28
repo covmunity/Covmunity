@@ -14,6 +14,11 @@ export FLASK_ENV=${FLASK_ENV:-development}
 source ./scripts/python.sh
 enable_venv
 
+if [ "$FLASK_ENV"="development" ]; then
+echo -e "\nStart database:\n"
+docker-compose up -d
+fi
+
 echo -e "\nDefined routes:\n"
 flask routes
 echo -e "\nRunning web server...\n"
