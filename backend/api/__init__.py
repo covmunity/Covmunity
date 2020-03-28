@@ -1,6 +1,8 @@
 import os
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, redirect, url_for, flash
+from flask import get_flashed_messages
+from flask_login import login_required, current_user, logout_user, LoginManager
 
 from . import status, report, volunteer, account, auth
 from .db import db, db_cli
@@ -42,5 +44,36 @@ def create_app(test_config=None):
 
     # register auth providers
     app.register_blueprint(auth.google, url_prefix="/auth")
+
+    # configure login
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+
+    # TODO: complete login management
+    @login_manager.user_loader
+    def load_user(user_id):
+       return auth.User.query.get(user_id)
+
+    @app.route("/test/login")
+    @login_manager.unauthorized_handler
+    def login():
+        return redirect(url_for('google.login'))
+
+    @app.route("/test/logout")
+    def logout():
+        logout_user()
+        flash("Succesfuly logged out.")
+        return redirect(url_for('root'))
+
+    # XXX: remove this
+    @app.route("/test")
+    @login_required
+    def test():
+        return jsonify([current_user.id, current_user.email])
+
+    # XXX: remove this
+    @app.route("/")
+    def root():
+        return jsonify(get_flashed_messages())
 
     return app
