@@ -26,9 +26,10 @@ Once started, navigate to <http://127.0.0.1:8888>.
 
 ### Configure web server
 
-Just edit the script `backend/start-server.sh` and define both variables:
+Export the follwing environment variables before running `start-server.sh`.
 
 * `HOST`
 * `PORT`
+* `FLASK_ENV`
 
 Nothing more :grin:
