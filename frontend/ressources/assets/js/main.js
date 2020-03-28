@@ -5,6 +5,9 @@ window.init = {
 	theme: ''
 };
 
+// internal object
+var covmunity = covmunity || {};
+
 // app ui
 $(document).ready(function() {
 	// Disabled links
@@ -234,4 +237,98 @@ $(document).ready(function() {
 				break;
 		}
 	}
+});
+
+// dirty config structure
+covmunity.config = {
+	debug: true
+};
+
+// dirty frontend -> backend api code
+covmunity.api = {
+	hello: function (ctx, next) {
+		console.group('API');
+		console.log('[hello]', ctx);
+		console.groupEnd();
+
+		// do the api business here
+
+		next(); // callback is here just for an indication of the behaviour
+	},
+};
+
+// quick routing code
+covmunity.app = {
+	init: function () {
+		console.group('Page.js');
+		console.log('App:', this);
+		console.groupEnd();
+	},
+	run: function () {
+		this.init();
+
+		/*
+		TODO: Fix this part. I'm gonna eat something
+		*/
+
+		// page();
+		page({
+			click: true,
+			dispatch: true,
+			popstate: true
+		});
+		/* page({
+			click: false, // Change this to get back on client-side only
+			popstate: false, // Change this to get back on client-side only
+		}); */
+		/* page({
+			click: true, // Change this to get back on client-side only
+			popstate: true, // Change this to get back on client-side only
+		}); */
+	},
+};
+
+// available pages
+covmunity.pages = {
+	error: function () {
+		console.group('Page.js');
+		console.error('Route not defined.', this);
+		console.groupEnd();
+	},
+	init: function (ctx, next) {
+		console.group('Page.js');
+		console.info('Attached scopes:', ctx, covmunity);
+		console.groupEnd();
+
+		next(); // Must be the last line, uncomment to cascade callbacks
+	},
+	hello: function (ctx) {
+		console.group('Page.js');
+		console.info('Client [hello] API call visual return', ctx);
+		console.groupEnd();
+
+		// do the display logic here
+	},
+	home: function (ctx) {
+		console.group('Page.js');
+		console.info('Welcome to the Homepage !', ctx);
+		console.groupEnd();
+
+		// next(); // Must be the last line, uncomment to cascade callbacks
+	},
+};
+
+// Define all client-side routes - Must be same as server ones
+// Just replace '@' by ':' for parameters
+page('*', covmunity.pages.init);
+page('/', covmunity.pages.home);
+page('/hello', covmunity.api.hello, covmunity.pages.hello);
+page('*', covmunity.pages.error);
+
+// Boot stuff when DOM is loaded
+$(function (event) {
+	console.group('App');
+	console.info('DOM Loaded.', event);
+	covmunity.app.run();
+	console.groupEnd();
 });
