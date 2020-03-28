@@ -1,8 +1,9 @@
 import os
 
-from flask import Flask
+from flask import Flask, jsonify
 
-from . import report, volunteer, account
+from . import status, report, volunteer, account
+from .db import db, db_cli
 
 
 def create_app(test_config=None):
@@ -12,12 +13,13 @@ def create_app(test_config=None):
         # flask configuration
         SECRET_KEY='dev',
 
-        # mysql info
-        MYSQL_PASSWORD='dev',
-        MYSQL_DB='dev',
-        MYSQL_HOST='localhost',
-        MYSQL_PORT='3306',
+        # db settings
+        SQLALCHEMY_DATABASE_URI='mysql+mysqlconnector://root:dev@localhost/covmunity',
+        SQLALCHEMY_TRACK_MODIFICATIONS=True,
     )
+
+    db.init_app(app)
+    app.cli.add_command(db_cli)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -32,15 +34,9 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple status page for healthcheck
-    @app.route('/status')
-    def hello():
-        return 'OK'
-
     # register blueprints
     app.register_blueprint(report.bp)
     app.register_blueprint(volunteer.bp)
     app.register_blueprint(account.bp)
 
     return app
-

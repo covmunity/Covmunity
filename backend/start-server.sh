@@ -17,6 +17,8 @@ enable_venv
 if [ "$FLASK_ENV"="development" ]; then
 echo -e "\nStart database:\n"
 docker-compose up -d
+flask db wait
+flask db init
 fi
 
 echo -e "\nDefined routes:\n"

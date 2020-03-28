@@ -2,9 +2,11 @@ version: '2.3'
 
 services:
   mysql:
-    image: mysql:8.0.19
+    image: mysql:5.7.29
+    #image: mysql:8.0.19
     environment:
       MYSQL_ROOT_PASSWORD: dev
+      MYSQL_DATABASE: covmunity
     ports:
-      - 3306:33060
+      - 3306:3306
 
