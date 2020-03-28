@@ -102,3 +102,10 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Vim
+*.swp
+
+# Python
+venv
+__pycache__

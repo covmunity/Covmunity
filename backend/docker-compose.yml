@@ -1,0 +1,10 @@
+version: '2.3'
+
+services:
+  mysql:
+    image: mysql:8.0.19
+    environment:
+      MYSQL_ROOT_PASSWORD: dev
+    ports:
+      - 3306:33060
+
