@@ -1,9 +1,15 @@
 #fevercheckfield{
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    border: 1px solid white;
 }
 
 .hidden{
     display: none;
 }
+
+#forwardnavsymptomsform,
+#backnavsymptomsform{
+    cursor:pointer;
+}
+

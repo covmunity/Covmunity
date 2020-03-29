@@ -1,32 +1,45 @@
 
 
+$('#healthysection').off('click').on('click', function onclick_healthysection(){
+    $('#healthyornot').removeClass('visible');
+    $('#healthyornot').addClass('hidden');
+    $('#healthyform').toggleClass('hidden');
+});
 
-$(document).ready(function() {
 
-    $('#healthysection').offclick().onclick(onclick_healthysection());
-    $('#sicksection').offclick().onclick(onclick_sicksection());
+$('#sicksection').off('click').on('click', function onclick_sicksection(){
+    $('#healthyornot').removeClass('visible');
+    $('#healthyornot').addClass('hidden');
 
 
-    
+    $('#formsymptoms').toggleClass('hidden');
+
     
 });
 
-/**
- * 
- * @param {*} event 
- */
-function onclick_healthysection(event){
-
-//    $('#formsymptoms').toggleClass('hidden');
-}
-
-
-/**
- * 
- * @param {*} event 
- */
-function onclick_sicksection(event){
+$('#forwardnavsymptomsform').off('click').on('click', function forwardnavsymptomsform(){
     $('#formsymptoms').toggleClass('hidden');
-    $('#formsymptoms').addClass('visible');
-}
+    $('#userhelpsornot').toggleClass('hidden');
+});
 
+$('#backnavsymptomsform').off('click').on('click', function backnavsymptomsform(){
+    $('#healthyornot').removeClass('hidden');
+    $('#healthyornot').addClass('visible');
+
+
+    $('#formsymptoms').toggleClass('hidden');
+});
+
+
+$('#denieallhealthy').off('click').on('click', function denieallhealthy(){
+
+      $('#healthyform').toggleClass('hidden');
+      $('#userhelpsornot').toggleClass('hidden');
+});
+
+
+$('#confirmallhealthy').off('click').on('click', function confirmalllhealthy(){
+
+    $('#healthyform').toggleClass('hidden');
+    $('#allhealthyform').toggleClass('hidden');
+});
