@@ -79,7 +79,7 @@ Citizens could be the "first" users, with a less accurate description of health 
 * Static Website (html, js, jquery)[now]
 * Fomantic-UI https://fomantic-ui.com/
 
-### Frontend mobile [future]
+### Mobile [future]
 
 * React Native [future]
 
@@ -93,3 +93,12 @@ Citizens could be the "first" users, with a less accurate description of health 
 
 * Python Flask
 * Docker
+
+## Existing questionaries around:
+
+* https://covapp.charite.de/
+* https://coronavirus.unisante.ch/
+* https://www.coronachecker.ch
+* https://www.covidtracker.ch/#form
+* https://www.coronamadrid.com/adrid.com/
+* https://www.enotfallmedizin.ch/service/corona_check/s://www.enotfallmedizin.ch/service/corona_check/
