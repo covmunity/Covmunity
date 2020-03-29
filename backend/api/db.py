@@ -8,6 +8,8 @@ db = SQLAlchemy()
 
 db_cli = AppGroup('db')
 
+# TODO: Add support for schema migrations
+
 @db_cli.command('init')
 def init_db():
     """
