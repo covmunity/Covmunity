@@ -1,16 +1,18 @@
 import os
 
 from flask import Flask, jsonify, redirect, url_for, flash, request, session, abort
-from flask import get_flashed_messages
+from flask import get_flashed_messages, render_template
 from flask_login import login_required, current_user, logout_user, LoginManager, login_url
 
 from . import status, report, volunteer, account, auth
 from .db import db, db_cli
 
 
+
+
 def create_app(test_config=None):
     # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__, instance_relative_config=True, template_folder='../../frontend/', static_folder='../../frontend/')
     app.config.from_mapping(
         # flask configuration
         SECRET_KEY='dev',
@@ -47,6 +49,10 @@ def create_app(test_config=None):
 
     # configure login
     setup_login(app)
+
+    @app.route('/dashboard')
+    def show_dashboard():
+        return render_template('index.html')
 
     @app.route("/")
     @login_required
