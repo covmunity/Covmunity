@@ -20,7 +20,8 @@ from .account import User
 
 class OAuth(OAuthConsumerMixin, db.Model):
     __tablename__ = 'oauth_tokens'
-    user_id = db.Column(db.String(36), db.ForeignKey(User.id))
+    provider_user_id = db.Column(db.String(255), nullable=False)
+    user_id = db.Column(db.String(36), db.ForeignKey(User.id), nullable=False)
     user = db.relationship(User)
 
 google = make_google_blueprint(scope="openid https://www.googleapis.com/auth/userinfo.email")
@@ -48,14 +49,14 @@ def google_logged_in(blueprint, token):
     # Find this OAuth token in the database, or create it
     query = OAuth.query.filter_by(
         provider=blueprint.name,
-        user_id=google_user_id,
+        provider_user_id=google_user_id,
     )
     try:
         oauth = query.one()
     except NoResultFound:
         oauth = OAuth(
             provider=blueprint.name,
-            user_id=google_user_id,
+            provider_user_id=google_user_id,
             token=token,
         )
 
