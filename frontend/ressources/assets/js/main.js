@@ -246,13 +246,14 @@ covmunity.config = {
 
 // dirty frontend -> backend api code
 covmunity.api = {
-	hello: function (ctx, next) {
+	getAccount: function (ctx, next) {
 		console.group('API');
-		console.log('[hello]', ctx);
+		console.log('[account]', ctx);
 		console.groupEnd();
-
-		// do the api business here
-
+		// api call account details
+		var account = getAccount();
+		//TODO: prepare/forward JSobject to UI element
+		console.log(account.email)
 		next(); // callback is here just for an indication of the behaviour
 	},
 };
@@ -320,9 +321,9 @@ covmunity.pages = {
 
 // Define all client-side routes - Must be same as server ones
 // Just replace '@' by ':' for parameters
-page('*', covmunity.pages.init);
+page('*', covmunity.api.getAccount, covmunity.pages.init);
 page('/', covmunity.pages.home);
-page('/hello', covmunity.api.hello, covmunity.pages.hello);
+page('/account/profile', covmunity.api.getAccount, covmunity.pages.hello);
 page('*', covmunity.pages.error);
 
 // Boot stuff when DOM is loaded
