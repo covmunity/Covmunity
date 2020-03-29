@@ -9,7 +9,10 @@
 }
 
 #forwardnavsymptomsform,
-#backnavsymptomsform{
+#backnavsymptomsform,
+#backnavuserhelpornot,
+#backnavhealthyform,
+#backnavallhealthy{
     cursor:pointer;
 }
 

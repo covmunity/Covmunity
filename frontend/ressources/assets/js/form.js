@@ -43,3 +43,26 @@ $('#confirmallhealthy').off('click').on('click', function confirmalllhealthy(){
     $('#healthyform').toggleClass('hidden');
     $('#allhealthyform').toggleClass('hidden');
 });
+
+
+
+$('#backnavuserhelpornot').off('click').on('click', function backnavuserthelpornot(){
+
+    $('#userhelpsornot').toggleClass('hidden');
+    $('#formsymptoms').toggleClass('hidden');
+});
+
+
+$('#backnavhealthyform').off('click').on('click', function backnavhealthyform(){
+
+    $('#healthyform').toggleClass('hidden');
+
+    $('#healthyornot').removeClass('hidden');
+    $('#healthyornot').addClass('visible');
+});
+
+$('#backnavallhealthy').off('click').on('click', function backnavhealthyform(){
+
+    $('#userhelpsornot').toggleClass('hidden');    
+});
+
