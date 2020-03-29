@@ -3,6 +3,7 @@
 function enable_venv {
 	# Check if there is a virtual env already enabled
 	if [ -n "$VIRTUAL_ENV" ]; then
+		echo "Warning: Current environment is configured with VIRTUAL_ENV=$VIRTUAL_ENV, this will be used."
 		return
 	fi
 
