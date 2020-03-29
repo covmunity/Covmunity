@@ -100,6 +100,14 @@ main .ui.cards {
 	transition: background-color .8s, color .8s;
 } */
 
+@media only screen and (min-width: 900px) {
+	footer div.large.screen.only {
+		display: block !important;
+	}
+	footer div.mobile.only {
+		display: none !important;
+	}
+}
 @media only screen and (max-width: 900px) {
 	/* body.pushable {
 		background: #FFFFFF;
@@ -120,6 +128,12 @@ main .ui.cards {
 		display: none !important;
 	}
 	.secondary.menu .header.mobile.only {
+		display: block !important;
+	}
+	footer div.large.screen.only {
+		display: none !important;
+	}
+	footer div.mobile.only {
 		display: block !important;
 	}
 }
@@ -143,6 +157,12 @@ main .ui.cards {
 		display: none !important;
 	}
 	.secondary.menu .header.mobile.only {
+		display: block !important;
+	}
+	footer div.large.screen.only {
+		display: none !important;
+	}
+	footer div.mobile.only {
 		display: block !important;
 	}
 }
