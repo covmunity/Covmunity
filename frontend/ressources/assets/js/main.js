@@ -84,6 +84,7 @@ covmunity.app = {
 			popstate: true // Change address bar URL or not (also populate the history stack)
 		});
 
+		// Process backend URL
 		page(window.location.pathname);
 	},
 	showSection: function(section) {
@@ -192,8 +193,8 @@ covmunity.pages = {
 // Just replace '@' by ':' for parameters
 // page('*', covmunity.api.getAccount, covmunity.pages.init); // It should work with just the 'init' method
 page('*', covmunity.pages.init); // Initialize on every requests (no need to change here normally)
-page('/', covmunity.pages.dashboard); // Call the method that will render the 'home' content
-page('/dashboard', covmunity.pages.dashboard); // Call the method that will render the 'home' content
+page('/', covmunity.pages.dashboard); // Call the method that will render the 'dashboard' content
+page('/dashboard', covmunity.pages.dashboard); // Call the method that will render the 'dashboard' content
 page('/account', covmunity.pages.account); // Call the method that will render the 'account' content
 page('/form', covmunity.pages.form); // Call the method that will render the 'form' content
 page('/charts', covmunity.pages.charts); // Call the method that will render the 'charts' content
