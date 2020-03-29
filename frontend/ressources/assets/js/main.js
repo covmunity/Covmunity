@@ -27,7 +27,7 @@ covmunity.api = {
 		console.groupEnd();
 		
 		// api call account details
-		var account = getAccount();
+		var account = getAccountProfile();
 
 		// TODO: prepare/forward JSobject to UI element*
 		// 

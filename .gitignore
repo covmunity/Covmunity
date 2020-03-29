@@ -109,3 +109,6 @@ dist
 # Python
 venv
 __pycache__
+
+# VSCode
+frontend/.vscode/launch.json
