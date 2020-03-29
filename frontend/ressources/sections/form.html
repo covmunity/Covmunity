@@ -1,2 +1,90 @@
 <h2 class="ui dividing header">Covmunity Form</h2>
-<a href="./dashboard">Back</a>
+
+<div id="healthyornot">
+  <div id="subtitle">
+    <label>How do you feel today ?</label>
+  </div>
+
+  <div id="choicehealthyornot">
+
+    <button class="ui button" id="healthysection">
+      I am healthy
+    </button>
+    <button class="ui button" id="sicksection">
+      I feel sick
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<div id="formsymptoms" class='hidden'>
+
+    <div id="subtitle">
+        <label>Which symptoms do you have ?</label>
+    </div>
+
+      <div class="ui checkbox">
+        <input type="checkbox" name="Cough" id="checkcough">
+        <label>Cough</label>
+      </div>
+      <div class="ui checkbox">
+        <input type="checkbox" name="RunnyNose" id="checkrunnynose">
+        <label>Runny Nose</label>
+      </div>
+      <div id="fevercheckfield">
+        <div class="ui checkbox">
+            <input type="checkbox" name="Fever" id="checkFever">
+            <label>Fever</label>
+        </div>
+        <div id="feverfield">
+            <!-- <label></label> -->
+            <input type="number" placeholder="Temperature (C°)">
+          </div>
+      </div>
+      
+      <div class="ui checkbox">
+        <input type="checkbox" name="Headache" id="checkheadache">
+        <label>Headache</label>
+      </div>
+
+      <div class="othercheckfield">
+        <div class="ui checkbox">
+            <input type="checkbox" name="Other" id="checkother">
+            <label>Other</label>
+        </div>
+        <div id="otherfield">
+            <!-- <label></label> -->
+            <input type="text" placeholder="Separate by ','">
+          </div>
+      </div>
+
+
+      <a id="navigateback" href="#!" onclick="window.history.back();" class="arrow alternate circle right outline icon">Back</a>
+      <a id="navigateforward" href="#!" onclick="window.history.forward();" class="arrow alternate circle left outline icon">Forward</a>
+</div>
+
+
+<div id="userhelpsornot">
+
+  <div id="healthrecommondation">
+    <label>You and anyone living with you should stay at home and keep track of your health.</label>
+  </div>
+
+  <div id="questionwantshelp">
+    <label>Would you like some help from a neighbour to get your groceries or medecine ? </label>
+  </div>
+
+  <div id="choicehelpornot" class='hidden'>
+    <button class="ui button" id="confirmhelp">
+      Yes please.
+    </button>
+    <button class="ui button" id="deniehelp">
+      No, thanks.
+    </button>
+  </div>
+
+
+</div>
