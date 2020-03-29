@@ -132,13 +132,13 @@ covmunity.pages = {
 
 		next(); // Must be the last line, uncomment to cascade callbacks
 	},
-	home: function (ctx) {
+	dashboard: function (ctx) {
 		console.group('Page.js');
-		console.info('Loading [home] client code...', ctx);
+		console.info('Loading [dashboard] client code...', ctx);
 		console.groupEnd();
 
 		// do the display logic here
-		covmunity.app.showSection('/home');
+		covmunity.app.showSection('/dashboard');
 	},
 	account: function (ctx) {
 		console.group('Page.js');
@@ -192,8 +192,8 @@ covmunity.pages = {
 // Just replace '@' by ':' for parameters
 // page('*', covmunity.api.getAccount, covmunity.pages.init); // It should work with just the 'init' method
 page('*', covmunity.pages.init); // Initialize on every requests (no need to change here normally)
-page('/', covmunity.pages.home); // Call the method that will render the 'home' content
-page('/dashboard', covmunity.pages.home); // Call the method that will render the 'home' content
+page('/', covmunity.pages.dashboard); // Call the method that will render the 'home' content
+page('/dashboard', covmunity.pages.dashboard); // Call the method that will render the 'home' content
 page('/account', covmunity.pages.account); // Call the method that will render the 'account' content
 page('/form', covmunity.pages.form); // Call the method that will render the 'form' content
 page('/charts', covmunity.pages.charts); // Call the method that will render the 'charts' content
