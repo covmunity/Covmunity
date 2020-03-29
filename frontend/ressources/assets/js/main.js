@@ -84,6 +84,23 @@ covmunity.app = {
 			popstate: true // Change address bar URL or not (also populate the history stack)
 		});
 	},
+	showSection: function(section) {
+		if (!section) { section = 'error'; }
+		var container = '#variable-container';
+		var file = section.replace('/', '');
+		var filePath = 'ressources/sections/' + file + '.html';
+		console.log('Loading ' + filePath + '...');
+		$.get(filePath)
+		 .done(function (data) {
+			console.log('Content loaded.');
+			$(container).html(data);
+		 })
+		 .fail(function (jqXHR) {
+			var errorContent = '<h2>Covmunity Unknow Error</h2><a href="#!" onclick="window.history.back();">Back</a>';
+			$(container).html(errorContent);
+			console.error('Failed to load content.', jqXHR);
+		 });
+	}
 };
 
 // available pages
@@ -106,6 +123,7 @@ covmunity.pages = {
 		console.groupEnd();
 
 		// do the display logic here
+		covmunity.app.showSection('/home');
 	},
 	account: function (ctx) {
 		console.group('Page.js');
@@ -120,6 +138,7 @@ covmunity.pages = {
 		console.groupEnd();
 
 		// do the display logic here
+		covmunity.app.showSection(ctx.pathname);
 	},
 	charts: function (ctx) {
 		console.group('Page.js');
@@ -127,6 +146,7 @@ covmunity.pages = {
 		console.groupEnd();
 
 		// do the display logic here
+		covmunity.app.showSection(ctx.pathname);
 	},
 	maps: function (ctx) {
 		console.group('Page.js');
@@ -134,6 +154,7 @@ covmunity.pages = {
 		console.groupEnd();
 
 		// do the display logic here
+		covmunity.app.showSection(ctx.pathname);
 	},
 	help: function (ctx) {
 		console.group('Page.js');
@@ -141,6 +162,7 @@ covmunity.pages = {
 		console.groupEnd();
 
 		// do the display logic here
+		covmunity.app.showSection(ctx.pathname);
 	},
 	hello: function (ctx) {
 		console.group('Page.js');
