@@ -25,6 +25,14 @@ class User(UserMixin, db.Model):
     def profiles_count(self):
         return db.session.query(Profile).filter_by(user_id=self.id).count()
 
+    def self_profile(self):
+        profile = Profile.query.filter_by(user_id=self.id, nickname="__self").one_or_none()
+        if profile is None:
+            profile = Profile(user_id=self.id, nickname="__self")
+        db.session.add(profile)
+        db.session.commit()
+        return profile
+
 
 class Profile(db.Model):
     """
@@ -65,12 +73,17 @@ def add_profile():
     if request.json is None or request.json.get('nickname') is None:
         return "Missing parameter 'nickname'\n", 400
 
+    nickname = request.json.get('nickname')
+    if nickname == "__self":
+        return "Not allowed nickname\n", 400
+
     if current_user.profiles_count() >= 3:
         return "Maximum number of profiles exceeded\n", 400
 
+
     profile = Profile(
         user_id=current_user.id,
-        nickname = request.json.get('nickname')
+        nickname=nickname,
     )
     db.session.add(profile)
     db.session.commit()
