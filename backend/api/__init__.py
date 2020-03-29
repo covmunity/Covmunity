@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask, jsonify, redirect, url_for, flash, request, session, abort
-from flask import get_flashed_messages, render_template
+from flask import get_flashed_messages
 from flask_login import login_required, current_user, logout_user, LoginManager, login_url
 
 from . import status, report, volunteer, account, auth
@@ -47,10 +47,6 @@ def create_app(test_config=None):
 
     # configure login
     setup_login(app)
-
-    @app.route('/dashboard')
-    def show_dashboard():
-        return render_template('index.html')
 
     @app.route("/")
     @login_required
