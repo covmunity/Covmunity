@@ -3,8 +3,13 @@
 Allow people to respect quarantines and self isolation
 
 ## Idea:
-Build an app, or easily accessible website, that keeps track of your health status and your location.easily accessible website, that keeps track of your health status and your locationp, or easily accessible website, that keeps track of your health status and your locationp, or easily accessible website, that keeps track of your health status and your locationp, or easily accessible website, that keeps track of your health status and your location, or easily accessible website, that keeps track of your health status and your locationp, or easily accessible website, that keeps track of your health status and your locationp, or easily accessible website, that keeps track of your health status and your location
+
+- Build an app, or easily accessible website, that keeps track of your health status and your location.
+
+- Easily accessible website, that keeps track of your health status and your locationp, or easily accessible website, that keeps track of your health status and your location 
+
 ## Aim:
+
 - Allow people to respect quarantines and self isolation
 - Get an idea on the number of people affected by the disease but not officially tested
 - Facilitate communication between local helpers and people in needHow would it work?
