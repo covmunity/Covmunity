@@ -83,6 +83,8 @@ covmunity.app = {
 			dispatch: false, // Dispatch request to backend or not (beware that the request will still get dispatched on page reloads)
 			popstate: true // Change address bar URL or not (also populate the history stack)
 		});
+
+		page(window.location.pathname);
 	},
 	showSection: function(section) {
 		if (!section) { section = 'error'; }
@@ -191,6 +193,7 @@ covmunity.pages = {
 // page('*', covmunity.api.getAccount, covmunity.pages.init); // It should work with just the 'init' method
 page('*', covmunity.pages.init); // Initialize on every requests (no need to change here normally)
 page('/', covmunity.pages.home); // Call the method that will render the 'home' content
+page('/dashboard', covmunity.pages.home); // Call the method that will render the 'home' content
 page('/account', covmunity.pages.account); // Call the method that will render the 'account' content
 page('/form', covmunity.pages.form); // Call the method that will render the 'form' content
 page('/charts', covmunity.pages.charts); // Call the method that will render the 'charts' content

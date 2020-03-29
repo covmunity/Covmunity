@@ -51,6 +51,10 @@ def create_app(test_config=None):
     setup_login(app)
 
     @app.route('/dashboard')
+    @app.route('/form')
+    @app.route('/charts')
+    @app.route('/maps')
+    @app.route('/help')
     def show_dashboard():
         return render_template('index.html')
 
