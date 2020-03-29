@@ -49,6 +49,19 @@ def create_app(test_config=None):
     login_manager = LoginManager()
     login_manager.init_app(app)
 
+    @login_manager.request_loader
+    def load_user_from_request(request):
+        # XXX: Only for development
+        user_id = request.headers.get("X-User-ID")
+        if user_id:
+            user = account.User.query.get(user_id)
+            if not user:
+                user = account.User(id=user_id)
+                db.session.add(user)
+                db.session.commit()
+            return user
+        return None
+
     # TODO: complete login management
     @login_manager.user_loader
     def load_user(user_id):
@@ -57,7 +70,8 @@ def create_app(test_config=None):
     @app.route("/test/login")
     @login_manager.unauthorized_handler
     def login():
-        return redirect(url_for('google.login', next=request.endpoint))
+        abort(401)
+        return url_for('google.login', next=request.endpoint)
 
     @app.route("/test/logout")
     def logout():

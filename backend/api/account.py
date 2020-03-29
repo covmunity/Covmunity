@@ -45,11 +45,24 @@ def get_profile(uuid):
         "nickname": profile.nickname,
     })
 
+@bp.route('/profile', methods=('GET',))
+@login_required
+def list_profiles():
+    profiles = Profile.query.filter_by(user_id=current_user.id)
+    result = []
+    for profile in profiles:
+        result.append({
+            "id": profile.id,
+            "user_id": profile.user_id,
+            "nickname": profile.nickname,
+        })
+    return jsonify(result)
+
 @bp.route('/profile', methods=('POST',))
 @login_required
 def add_profile():
     profile = Profile(
-        user_id=42,
+        user_id=current_user.id,
     )
     if request.json:
         profile.nickname = request.json.get('nickname')
