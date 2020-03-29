@@ -45,7 +45,7 @@ To facilitate the interaction between helpers and people in need, everything sho
 
 ## Questions Structure:
 
-1. Starting the account (allows insertion of data corresponding to max three people) 
+### Starting the account (allows insertion of data corresponding to max three people) 
 
 - Gender
 - Age range (e.g. choose from: <20, 21-40,41-60,>60)
@@ -53,7 +53,7 @@ To facilitate the interaction between helpers and people in need, everything sho
 - Are you part of an at-risk group? (list cases) Answer yes or no
 - Postal code
 
-2. Daily Questionaire 
+### Daily Questionaire 
 
 - see handmade scheme
 
