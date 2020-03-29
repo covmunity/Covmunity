@@ -42,6 +42,15 @@ covmunity.api = {
 		next(); // callback is here just for an indication of the behaviour (exactly)
 		// If removed, the second passed callback defined in the route won't be called.
 	},
+	hello: function (ctx, next) {
+		console.group('API');
+		console.info('[hello]', ctx);
+		console.groupEnd();
+
+		// do the display logic here
+
+		next(); // call next defined action
+	},
 };
 
 // quick routing code
@@ -91,6 +100,13 @@ covmunity.pages = {
 
 		next(); // Must be the last line, uncomment to cascade callbacks
 	},
+	home: function (ctx) {
+		console.group('Page.js');
+		console.info('Loading [home] client code...', ctx);
+		console.groupEnd();
+
+		// do the display logic here
+	},
 	account: function (ctx) {
 		console.group('Page.js');
 		console.info('Loading [account] client code...', ctx);
@@ -98,9 +114,23 @@ covmunity.pages = {
 
 		// do the display logic here
 	},
-	hello: function (ctx) {
+	form: function (ctx) {
 		console.group('Page.js');
-		console.info('Loading [hello] client code...', ctx);
+		console.info('Loading [form] client code...', ctx);
+		console.groupEnd();
+
+		// do the display logic here
+	},
+	charts: function (ctx) {
+		console.group('Page.js');
+		console.info('Loading [charts] client code...', ctx);
+		console.groupEnd();
+
+		// do the display logic here
+	},
+	maps: function (ctx) {
+		console.group('Page.js');
+		console.info('Loading [maps] client code...', ctx);
 		console.groupEnd();
 
 		// do the display logic here
@@ -112,9 +142,9 @@ covmunity.pages = {
 
 		// do the display logic here
 	},
-	home: function (ctx) {
+	hello: function (ctx) {
 		console.group('Page.js');
-		console.info('Loading [home] client code...', ctx);
+		console.info('Loading [hello] client code...', ctx);
 		console.groupEnd();
 
 		// do the display logic here
@@ -125,11 +155,19 @@ covmunity.pages = {
 // Just replace '@' by ':' for parameters
 // page('*', covmunity.api.getAccount, covmunity.pages.init); // It should work with just the 'init' method
 page('*', covmunity.pages.init); // Initialize on every requests (no need to change here normally)
-page('/', covmunity.pages.home); // Call the mode that will render the 'home' content
-page('/help', covmunity.pages.help); // Call the mode that will render the 'home' content
-page('/account', covmunity.pages.account); // Call the mode that will render the 'account' content
+page('/', covmunity.pages.home); // Call the method that will render the 'home' content
+page('/account', covmunity.pages.account); // Call the method that will render the 'account' content
+page('/form', covmunity.pages.form); // Call the method that will render the 'form' content
+page('/charts', covmunity.pages.charts); // Call the method that will render the 'charts' content
+page('/maps', covmunity.pages.maps); // Call the method that will render the 'maps' content
+page('/help', covmunity.pages.help); // Call the method that will render the 'home' content
 page(
 	'/profile', // Client side URL
+	covmunity.api.getAccount, // API method to send request to backend
+	covmunity.pages.account // When request is sent to backend, call the associated render method
+);
+page(
+	'/hello', // Client side URL
 	covmunity.api.getAccount, // API method to send request to backend
 	covmunity.pages.account // When request is sent to backend, call the associated render method
 );
