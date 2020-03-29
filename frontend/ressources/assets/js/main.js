@@ -187,6 +187,13 @@ covmunity.pages = {
 
 		// do the display logic here
 	},
+	login: function (ctx) {
+		console.group('Page.js');
+		console.info('Loading [hello] client code...', ctx);
+		console.groupEnd();
+
+		// do the display logic here
+	},
 };
 
 // Define all client-side routes - Must be same as server ones
@@ -200,6 +207,10 @@ page('/form', covmunity.pages.form); // Call the method that will render the 'fo
 page('/charts', covmunity.pages.charts); // Call the method that will render the 'charts' content
 page('/maps', covmunity.pages.maps); // Call the method that will render the 'maps' content
 page('/help', covmunity.pages.help); // Call the method that will render the 'home' content
+
+// Auth part 
+page('/login', covmunity.pages.login); // Call the method that will render the 'login' content
+
 page(
 	'/profile', // Client side URL
 	covmunity.api.getAccount, // API method to send request to backend

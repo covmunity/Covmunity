@@ -95,11 +95,18 @@ def setup_login(app):
     def unauthorized():
         abort(401)
 
-    @app.route("/login")
+    @app.route("/login", methods=['GET', 'POST'])
     def login():
+        print(request.form)
         if current_user is not None:
-            return redirect('/')
-        return redirect(url_for('google.login', next=request.endpoint))
+            error = None
+            if request.method == 'POST':
+                if request.form['email'] != 'admin@admin.com' or request.form['password'] != '123456789':
+                    error = 'Invalid Credentials. Please try again.'
+                else:
+                    return render_template('index.html')
+            return render_template('ressources/pages/Auth/login.html', error=error)
+        return render_template('index.html')
 
     @app.route("/logout")
     def logout():
