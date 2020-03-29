@@ -46,47 +46,10 @@ def create_app(test_config=None):
     app.register_blueprint(auth.google, url_prefix="/auth")
 
     # configure login
-    login_manager = LoginManager()
-    login_manager.init_app(app)
+    setup_login(app)
 
-    @login_manager.request_loader
-    def load_user_from_request(request):
-        # XXX: Only for development
-        user_id = request.headers.get("X-User-ID")
-        if user_id:
-            user = account.User.query.get(user_id)
-            if not user:
-                user = account.User(id=user_id)
-                db.session.add(user)
-                db.session.commit()
-            return user
-        return None
-
-    # TODO: complete login management
-    @login_manager.user_loader
-    def load_user(user_id):
-       return auth.User.query.get(user_id)
-
-    @app.route("/test/login")
-    @login_manager.unauthorized_handler
-    def login():
-        abort(401)
-        return url_for('google.login', next=request.endpoint)
-
-    @app.route("/test/logout")
-    def logout():
-        logout_user()
-        flash("Succesfuly logged out.")
-        return redirect(url_for('root'))
-
-    # XXX: remove this
-    @app.route("/test")
-    @login_required
-    def test():
-        return jsonify([current_user.id, current_user.email])
-
-    # XXX: remove this
     @app.route("/")
+    @login_required
     def root():
         if 'next' in session:
             next_url = url_for(session.pop('next'))
@@ -95,3 +58,41 @@ def create_app(test_config=None):
         return jsonify(get_flashed_messages())
 
     return app
+
+
+def setup_login(app):
+    login_manager = LoginManager()
+    login_manager.init_app(app)
+
+    @login_manager.request_loader
+    def load_user_from_request(request):
+        if app.env != 'production':
+            user_id = request.headers.get("X-User-ID")
+            if user_id:
+                user = account.User.query.get(user_id)
+                if not user:
+                    user = account.User(id=user_id)
+                    db.session.add(user)
+                    db.session.commit()
+                return user
+        return None
+
+    @login_manager.user_loader
+    def load_user(user_id):
+       return auth.User.query.get(user_id)
+
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        abort(401)
+
+    @app.route("/login")
+    def login():
+        if current_user is not None:
+            return redirect('/')
+        return redirect(url_for('google.login', next=request.endpoint))
+
+    @app.route("/logout")
+    def logout():
+        logout_user()
+        flash("Succesfuly logged out.")
+        return redirect(url_for('root'))
