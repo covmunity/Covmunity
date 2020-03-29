@@ -22,6 +22,9 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), nullable=True)
     profiles = db.relationship('Profile')
 
+    def profiles_count(self):
+        return db.session.query(Profile).filter_by(user_id=self.id).count()
+
 
 class Profile(db.Model):
     """
@@ -32,6 +35,13 @@ class Profile(db.Model):
     user_id = db.Column(db.String(36), db.ForeignKey(User.id))
     nickname = db.Column(db.String(64), nullable=False)
 
+    def as_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "nickname": self.nickname,
+        }
+
 
 @bp.route('/profile/<uuid>', methods=('GET',))
 @login_required
@@ -39,45 +49,37 @@ def get_profile(uuid):
     profile = Profile.query.get(uuid)
     if profile is None:
         abort(404)
-    return jsonify({
-        "id": profile.id,
-        "user_id": profile.user_id,
-        "nickname": profile.nickname,
-    })
+    return jsonify(profile.as_dict())
 
 @bp.route('/profile', methods=('GET',))
 @login_required
 def list_profiles():
-    profiles = Profile.query.filter_by(user_id=current_user.id)
     result = []
-    for profile in profiles:
-        result.append({
-            "id": profile.id,
-            "user_id": profile.user_id,
-            "nickname": profile.nickname,
-        })
+    for profile in current_user.profiles:
+        result.append(profile.as_dict())
     return jsonify(result)
 
 @bp.route('/profile', methods=('POST',))
 @login_required
 def add_profile():
+    if request.json is None or request.json.get('nickname') is None:
+        return "Missing parameter 'nickname'\n", 400
+
+    if current_user.profiles_count() >= 3:
+        return "Maximum number of profiles exceeded\n", 400
+
     profile = Profile(
         user_id=current_user.id,
+        nickname = request.json.get('nickname')
     )
-    if request.json:
-        profile.nickname = request.json.get('nickname')
     db.session.add(profile)
     db.session.commit()
-    return jsonify({
-        "id": profile.id,
-        "user_id": profile.user_id,
-        "nickname": profile.nickname,
-    })
+    return jsonify(profile.as_dict())
 
 @bp.route('/profile/<uuid>', methods=('DELETE',))
 @login_required
 def delete_profile(uuid):
-    profile = Profile.query.get(uuid)
+    profile = Profile.query.filter_by(id=uuid, user_id=current_user.id).one_or_none()
     if profile is None:
         abort(404)
     db.session.delete(profile)
