@@ -2,8 +2,19 @@ from flask import Blueprint, request
 from flask_login import current_user, login_required
 
 from sqlalchemy.sql import func
+from sqlalchemy.types import UserDefinedType
 
 from .db import db
+
+class Point(UserDefinedType):
+    def get_col_spec(self):
+        return "POINT"
+
+    def bind_expression(self, bindvalue):
+        return func.ST_GeomFromText(bindvalue, type_=self)
+
+    def column_expression(self, col):
+        return func.ST_AsText(col, type_=self)
 
 class Report(db.Model):
     __tablename__ = 'reports'
@@ -19,6 +30,7 @@ class Report(db.Model):
     country = db.Column(db.String(3))
     zip_code = db.Column(db.String(16))
     address = db.Column(db.String(255))
+    location = db.Column(Point)
 
 
 # API for reports management
@@ -44,7 +56,9 @@ def send():
         country=request.json.get('country'),
         zip_code=request.json.get('zip_code'),
         address=request.json.get('address'),
+        location=location_from_request(request),
     )
+    # TODO: Normalize location data
     db.session.add(report)
     db.session.commit()
     return "", 200
@@ -58,6 +72,14 @@ def contains_location(request):
     if json.get('latitude') and json.get('longitude'):
         return True
     return False
+
+def location_from_request(request):
+    latitude = request.json.get('latitude')
+    longitude = request.json.get('longitude')
+    if not latitude or not longitude:
+        return None
+    point = "POINT({} {})".format(latitude, longitude)
+    return point
 
 
 @bp.route('/query', methods=('GET', 'POST'))
