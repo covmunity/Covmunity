@@ -100,6 +100,19 @@ covmunity.app = {
 			$(container).html(errorContent);
 			console.error('Failed to load content.', jqXHR);
 		 });
+	},
+	getLocation: function(callback) {
+		$.getJSON('https://ipinfo.io/json', function(data) {
+			console.log(JSON.stringify(data, null, 2));
+			if (callback && typeof callback === 'function') {
+				callback(data);
+			}
+		});
+	},
+	getMap: function (location) {
+		console.group('Map');
+		console.log('Loading map with this data.', location);
+		console.groupEnd();
 	}
 };
 
