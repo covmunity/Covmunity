@@ -11,7 +11,7 @@
 		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.css">
 
 		<!-- Custom CSS -->
-		<link rel="stylesheet" type="text/css" href="ressources/assets/css/main.css">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
 
 		<!-- Custom Style -->
 		<style type="text/css"></style>
@@ -257,8 +257,8 @@
 		<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.3/dist/semantic.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/page.js/1.11.5/page.js"></script>
-		<script src="ressources/assets/js/ui.js"></script>
-		<script src="ressources/assets/js/main.js"></script>
-		<script src="ressources/assets/js/restapi.js"></script>
+		<script src="{{ url_for('static', filename='js/ui.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/restapi.js') }}"></script>
 	</body>
 </html>

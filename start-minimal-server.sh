@@ -6,7 +6,7 @@
 # Usage: ./backend/start-minimal-server.sh
 
 # Always run this script from where it is defined
-cd $(dirname $0)
+#cd $(dirname $0)
 
 # Thanks Jaime for that! [Jonathan]
 HOST=${HOST:-127.0.0.1}
