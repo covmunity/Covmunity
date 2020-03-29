@@ -21,11 +21,32 @@ function getVolunteerOffer() {
 }
 
 function getVolunteerRequest() {
+    url = host + '/volunteer/request'
     return get(url);
 }
 
 function postAccountProfile(data = {}) {
     url = host + '/account/profile'
+    return post(url, data)
+}
+
+function postReportQuery(data = {}) {
+    url = host + '/report/query'
+    return post(url, data)
+}
+
+function postReportSend(data = {}) {
+    url = host + '/report/send'
+    return post(url, data)
+}
+
+function postVolunteerOffer(data = {}) {
+    url = host + '/volunteer/offer'
+    return post(url, data)
+}
+
+function postVolunteerRequest(data = {}) {
+    url = host + '/volunteer/request'
     return post(url, data)
 }
 
