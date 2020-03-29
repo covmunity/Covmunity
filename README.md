@@ -58,3 +58,16 @@ To facilitate the interaction between helpers and people in need, everything sho
 - see handmade scheme
 
 - Issue: Maybe we should allow the user to manually change their tested/non-tested status, for example in their calendar entries page, because the question is asked only once but that may change in the future
+
+## Use cases:
+
+- As a user, I want to register me.
+- As a user, I want to report my health status (symptoms, temperature, oxymeter...).
+- As a user, I want to report the health status of a person that lives with me.
+- As an unhealthy user, I want to ask for help to avoid getting out.
+- As a healthy user, I want to help someone that needs to stay quarenteened at home.y quarenteened at home.
+- As a user, I want to see a map with information about cases around me.
+- As a user, I want aggregated data about symtoms.
+- As a user with special authorization, as a public health institution, I want to access all raw data
+
+Citizens could be the "first" users, with a less accurate description of health data, so they can get help and stay at home. When enough data is accumulated, complete data can be used by scientists and institutions.tay at home. When enough data is accumulated, complete data can be used by scientists and institutions.tay at home. When enough data is accumulated, complete data can be used by scientists and institutions.tay at home. When enough data is accumulated, complete data can be used by scientists and institutions.
