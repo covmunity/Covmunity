@@ -1,8 +1,8 @@
 import os
 
-from flask import Flask, jsonify, redirect, url_for, flash
+from flask import Flask, jsonify, redirect, url_for, flash, request, session
 from flask import get_flashed_messages
-from flask_login import login_required, current_user, logout_user, LoginManager
+from flask_login import login_required, current_user, logout_user, LoginManager, login_url
 
 from . import status, report, volunteer, account, auth
 from .db import db, db_cli
@@ -57,7 +57,7 @@ def create_app(test_config=None):
     @app.route("/test/login")
     @login_manager.unauthorized_handler
     def login():
-        return redirect(url_for('google.login'))
+        return redirect(url_for('google.login', next=request.endpoint))
 
     @app.route("/test/logout")
     def logout():
@@ -74,6 +74,10 @@ def create_app(test_config=None):
     # XXX: remove this
     @app.route("/")
     def root():
+        if 'next' in session:
+            next_url = url_for(session.pop('next'))
+            return redirect(next_url)
+
         return jsonify(get_flashed_messages())
 
     return app

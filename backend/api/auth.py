@@ -1,7 +1,7 @@
-from flask import current_app, request, flash
+from flask import current_app, request, session, flash
 from flask_login import current_user, login_user
 
-from flask_dance.consumer import oauth_authorized
+from flask_dance.consumer import oauth_authorized, oauth_before_login
 from flask_dance.contrib.google import make_google_blueprint, google
 from flask_dance.consumer.storage.sqla import OAuthConsumerMixin, SQLAlchemyStorage
 
@@ -23,6 +23,10 @@ class OAuth(OAuthConsumerMixin, db.Model):
     provider_user_id = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.String(36), db.ForeignKey(User.id), nullable=False)
     user = db.relationship(User)
+
+@oauth_before_login.connect
+def before_login(blueprint, url):
+    session["next"] = request.args.get("next")
 
 google = make_google_blueprint(scope="openid https://www.googleapis.com/auth/userinfo.email")
 google.storage = SQLAlchemyStorage(OAuth, db.session, user=current_user)
@@ -76,6 +80,8 @@ def google_logged_in(blueprint, token):
 
         login_user(user)
         flash("Successfully registered and signed in with Google.")
+
+
 
     # Return False so Flask-Dance doesn't create another entry for the token
     return False
