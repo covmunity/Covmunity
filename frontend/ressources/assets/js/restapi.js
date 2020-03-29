@@ -1,76 +1,48 @@
 const host = 'http://127.0.0.1:8888';
 
-async function getAccountProfile() {
+function getAccountProfile() {
     url = host + '/account/profile'
-    const response = await fetch(url, {
-      method: 'GET', 
-      mode: 'no-cors',
-      headers: {
-    	'Content-Type': 'application/json'
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-    });
-    return await response.json();
+    return get(url);
 }
 
-async function getReportQuery() {
+function getReportQuery() {
     url = host + '/report/query'
-    const response = await fetch(url, {
-      method: 'GET', 
-      mode: 'no-cors',
-      headers: {
-    	'Content-Type': 'application/json'
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-    });
-    return await response.json();
+    return get(url);
 }
 
-async function getStatic(path) {
+function getStatic(path) {
     url = host + '/report/query/' + path
-    const response = await fetch(url, {
-      method: 'GET', 
-      mode: 'no-cors',
-      headers: {
-    	'Content-Type': 'application/json'
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-    });
-    return await response.json();
+    return get(url);
 }
 
-async function getVolunteerOffer() {
+function getVolunteerOffer() {
     url = host + '/volunteer/offer'
-    const response = await fetch(url, {
-      method: 'GET', 
-      mode: 'no-cors',
-      headers: {
-    	'Content-Type': 'application/json'
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-    });
-    return await response.json();
+    return get(url);
 }
 
-async function getVolunteerRequest() {
-    url = host + '/volunteer/request'
-    const response = await fetch(url, {
-      method: 'GET', 
-      mode: 'no-cors',
-      headers: {
-    	'Content-Type': 'application/json'
-      },
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-    });
-    return await response.json();
+function getVolunteerRequest() {
+    return get(url);
 }
 
-async function postAccountProfile(url = host + '/account/profile', data = {}) {
+function postAccountProfile(data = {}) {
+    url = host + '/account/profile'
+    return post(url, data)
+}
+
+async function get(url) {
+    const response = await fetch(url, {
+        method: 'GET', 
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+      });
+      return await response.json();
+}
+
+async function post(url, data = {}) {
     const response = await fetch(url, {
       method: 'POST',
       mode: 'no-cors',
