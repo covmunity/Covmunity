@@ -148,8 +148,17 @@ covmunity.app = {
 
 		var contentString = '' +
 			'<div id="content">' +
-			'<h3>Location</h3>' +
-			'</div';
+			'<h4 class="ui header" style="margin-top: 1px; margin-bottom: 0;">' +
+			'<i class="search location icon"></i>' +
+			'<div class="content">Location</div>' +
+			'</h4>' +
+			'<div class="ui bulleted list" style="margin-top: 10px;">' +
+			'<div class="item">Country: ' + location.country_name + '</div>' +
+			'<div class="item">Region: ' + location.region_name + '</div>' +
+			'<div class="item">City: ' + location.city + '</div>' +
+			'<div class="item">Zip: ' + location.zip + '</div>' +
+			'</div>';
+			'</div>';
 
 		var infowindow = new google.maps.InfoWindow({
 			content: contentString
