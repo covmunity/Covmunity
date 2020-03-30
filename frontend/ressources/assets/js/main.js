@@ -225,7 +225,7 @@ page('/account', covmunity.pages.account); // Call the method that will render t
 page('/form', covmunity.pages.form); // Call the method that will render the 'form' content
 page('/charts', covmunity.pages.charts); // Call the method that will render the 'charts' content
 page('/maps', covmunity.pages.maps); // Call the method that will render the 'maps' content
-page('/help', covmunity.pages.help); // Call the method that will render the 'home' content
+page('/help', covmunity.pages.help); // Call the method that will render the 'help' content
 
 // Auth part 
 page('/login', covmunity.pages.login); // Call the method that will render the 'login' content
