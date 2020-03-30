@@ -106,8 +106,23 @@ covmunity.app = {
 			console.error('Failed to load content.', jqXHR);
 		 });
 	},
+	getIPAddress: function(callback) {
+		console.log('Searching user IP address...');
+		$.getJSON('https://api.ipify.org?format=json', function(data) {
+			console.log('Found IP address:');
+			console.log(JSON.stringify(data, null, 2));
+			if (callback && typeof callback === 'function') {
+				callback(data);
+			}
+		});
+	},
 	getLocation: function(callback) {
-		$.getJSON('https://ipinfo.io/json', function(data) {
+		// TODO: Put the key somewhere else...
+		const apiKey = '097b8d59d4ded433de83da780f42127c';
+
+		console.log('Searching user location...');
+		$.getJSON('http://api.ipstack.com/check?access_key=' + apiKey + '&format=1', function(data) {
+			console.log('Found location:');
 			console.log(JSON.stringify(data, null, 2));
 			if (callback && typeof callback === 'function') {
 				callback(data);
@@ -117,7 +132,33 @@ covmunity.app = {
 	getMap: function (location) {
 		console.group('Map');
 		console.log('Loading map with this data.', location);
+		
+
+        var myLatLng = {
+			lat: location.latitude,
+			lng: location.longitude
+		};
+
+		console.log('Map centered too:', myLatLng);
+		document.getElementById('map').style.display = 'block';
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: myLatLng
+        });
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!'
+		});
+		
 		console.groupEnd();
+	},
+	displayMap: function () {
+		const self = this;
+		this.getLocation(function (data) {
+			self.getMap(data);
+		});
 	},
 	reload: function () {
 		console.log('Reloading section...');
@@ -185,6 +226,9 @@ covmunity.pages = {
 
 		// do the display logic here
 		covmunity.app.showSection(ctx.pathname);
+
+		// display map
+		covmunity.app.displayMap();
 	},
 	help: function (ctx) {
 		console.group('Page.js');
@@ -259,3 +303,6 @@ $(function () {
 
 	console.groupEnd();
 });
+
+// GoogleMaps wrapper
+// window.initMap = covmunity.app.initMap;
