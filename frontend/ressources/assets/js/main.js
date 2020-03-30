@@ -71,6 +71,8 @@ covmunity.app = {
 		// When 'click' is set to true, all navigation clicks will be captured
 		// then handled by the specified method / class defined for the matching route.
 		//
+		// When 'popstate' is set to true, the navigation history is populated.
+		//
 		// Routes are defined at the bottom of this file.
 		//
 		// See documentation here:
@@ -84,7 +86,7 @@ covmunity.app = {
 			popstate: true // Change address bar URL or not (also populate the history stack)
 		});
 
-		// Process backend URL
+		// Process current URL
 		page(window.location.pathname);
 	},
 	showSection: function(section) {
@@ -116,6 +118,12 @@ covmunity.app = {
 		console.group('Map');
 		console.log('Loading map with this data.', location);
 		console.groupEnd();
+	},
+	reload: function () {
+		console.log('Reloading section...');
+		
+		// Process current URL
+		page(window.location.pathname);
 	}
 };
 
@@ -130,6 +138,12 @@ covmunity.pages = {
 		console.group('Page.js');
 		console.info('Attached scopes:', ctx, covmunity);
 		console.groupEnd();
+
+		// hide sidebar if opened
+		if ($('.ui.sidebar').sidebar('is visible') === true) {
+			console.log('Sidebar is open, closing it.');
+			$('.ui.sidebar').sidebar('hide');
+		}
 
 		next(); // Must be the last line, uncomment to cascade callbacks
 	},
@@ -196,8 +210,13 @@ covmunity.pages = {
 	},
 };
 
-// Define all client-side routes - Must be same as server ones
-// Just replace '@' by ':' for parameters
+
+/***********************************************************************************************
+ * Define all client-side routes - Should be same as server ones                               *
+ * Just replace '@' by ':' for parameters (if needed, depending on server side parameter mask) *
+ ***********************************************************************************************/
+
+// App routes
 // page('*', covmunity.api.getAccount, covmunity.pages.init); // It should work with just the 'init' method
 page('*', covmunity.pages.init); // Initialize on every requests (no need to change here normally)
 page('/', covmunity.pages.dashboard); // Call the method that will render the 'dashboard' content
@@ -211,16 +230,21 @@ page('/help', covmunity.pages.help); // Call the method that will render the 'ho
 // Auth part 
 page('/login', covmunity.pages.login); // Call the method that will render the 'login' content
 
+// User part
 page(
 	'/profile', // Client side URL
 	covmunity.api.getAccount, // API method to send request to backend
 	covmunity.pages.account // When request is sent to backend, call the associated render method
 );
+
+// API Test
 page(
 	'/hello', // Client side URL
 	covmunity.api.getAccount, // API method to send request to backend
 	covmunity.pages.account // When request is sent to backend, call the associated render method
 );
+
+// Unexpected events / errors
 page('*', covmunity.pages.error); // Will be called on any errors, like 404, 500, etc...
 
 // Boot stuff when DOM is loaded
