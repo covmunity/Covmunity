@@ -107,13 +107,13 @@ main .ui.cards {
 	display: none;
 }
 #chart {
-	width: 69.7vw;
+	width: 51.5vw;
 	height: 450px;
 	/* display: none; */
 	overflow: auto;
 }
 .ui.segment.charts {
-	width: 69.7vw;
+	width: 48.6vw;
 	height: 450px;
 	/* display: none; */
 	overflow: auto;
@@ -135,15 +135,15 @@ main .ui.cards {
 
 	/* Map adjustments */
 	#map {
-		width: 51.5vw;
+		width: 51.5vw !important;
 	}
 
 	/* Chart adjustments */
 	#chart {
-		width: 69.7vw !important;
+		width: 48.6vw !important;
 	}
 	.charts {
-		width: 69.7vw !important;
+		width: 48.6vw !important;
 	}
 }
 
