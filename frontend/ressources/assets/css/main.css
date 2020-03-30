@@ -107,9 +107,16 @@ main .ui.cards {
 	display: none;
 }
 #chart {
-	width: 51.5vw;
-	height: 300px;
+	width: 69.7vw;
+	height: 450px;
 	/* display: none; */
+	overflow: auto;
+}
+.ui.segment.charts {
+	width: 69.7vw;
+	height: 450px;
+	/* display: none; */
+	overflow: auto;
 }
 
 /* It's slow down the whole UI... */
@@ -133,7 +140,10 @@ main .ui.cards {
 
 	/* Chart adjustments */
 	#chart {
-		width: 51.5vw;
+		width: 69.7vw !important;
+	}
+	.charts {
+		width: 69.7vw !important;
 	}
 }
 
@@ -177,7 +187,10 @@ main .ui.cards {
 
 	/* Chart adjustments */
 	#chart {
-		width: 85vw;
+		width: 85vw !important;
+	}
+	.ui.segment.charts {
+		width: 85vw !important;
 	}
 }
 
@@ -221,6 +234,9 @@ main .ui.cards {
 
 	/* Chart adjustments */
 	#chart {
-		width: 85vw;
+		width: 85vw !important;
+	}
+	.ui.segment.charts {
+		width: 85vw !important;
 	}
 }
