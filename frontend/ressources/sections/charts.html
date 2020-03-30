@@ -1,35 +1,122 @@
 <h2 class="ui dividing inverted header">Covmunity Charts</h2>
 <div class="ui basic segment">
 	<!-- preparing a DOM with width and height for ECharts -->
-	<div id="chart"></div>
+	<div class="ui fitted segment charts" style="width: 69.7vw; height: 450px; overflow: auto;">
+		<div id="chart1" style="width: 1024px; height: 450px;"></div>
+	</div>
+	<div class="ui fitted segment charts" style="width: 69.7vw; height: 450px; overflow: auto;">
+		<div id="chart2" style="width: 1024px; height: 450px;"></div>
+	</div>
 
 	<!-- chart js code -->
 	<script type="text/javascript">
 		// based on prepared DOM, initialize echarts instance
-		var myChart = echarts.init(document.getElementById('chart'), window.init.theme);
+		var myChart1 = echarts.init(document.getElementById('chart1'), window.init.theme);
 
-		// specify chart configuration item and data
-		var option = {
-			/* title: {
-				text: 'ECharts entry example'
-			}, */
-			tooltip: {},
-			legend: {
-				data:['Sales']
-			},
-			xAxis: {
-				data: ["shirt","cardign","chiffon shirt","pants","heels","socks"]
-			},
-			yAxis: {},
-			series: [{
-				name: 'Sales',
-				type: 'bar',
-				data: [5, 20, 36, 10, 10, 20]
-			}]
-		};
+		// based on prepared DOM, initialize echarts instance
+		var myChart2 = echarts.init(document.getElementById('chart2'), window.init.theme);
 
-		// use configuration item and data specified to show chart
-		myChart.setOption(option);
+		// call the data source wrapper
+		covmunity.app.getDataSource(function (data) {
+			// create world data array
+			var worldData = [];
+			worldData.push(
+				// data.worldStats.cases,
+				data.worldStats.confirmed,
+				data.worldStats.deaths,
+				data.worldStats.recovered,
+				data.worldStats.active,
+				data.worldStats.critical,
+				// data.worldStats.casesPerOneMillion,
+				// data.worldStats.todayCases,
+				// data.worldStats.todayDeaths,
+			);
+			console.log('Computed data array:', worldData);
+	
+			// specify chart configuration item and data
+			var option = {
+				tooltip: {},
+				legend: {
+					data:['World Stats']
+				},
+				xAxis: {
+					data: [
+						// "cases",
+						"confirmed",
+						"deaths",
+						"recovered",
+						"active",
+						"critical",
+						// "casesPerOneMillion",
+						// "todayCases",
+						// "todayDeaths"
+					]
+				},
+				yAxis: {},
+				series: [{
+					name: 'World Stats',
+					type: 'bar',
+					// data: [5, 20, 36, 10, 10, 20]
+					data: worldData
+				}]
+			};
+
+			console.log('Chart options:', option);
+
+			// use configuration item and data specified to show chart
+			myChart1.setOption(option);
+		});
+
+		// call the data source wrapper
+		covmunity.app.getDataSource(function (data) {
+			// create world data array
+			var worldData = [];
+			worldData.push(
+				// data.worldStats.cases,
+				// data.worldStats.confirmed,
+				// data.worldStats.deaths,
+				// data.worldStats.recovered,
+				// data.worldStats.active,
+				// data.worldStats.critical,
+				data.worldStats.casesPerOneMillion,
+				data.worldStats.todayCases,
+				data.worldStats.todayDeaths,
+			);
+			console.log('Computed data array:', worldData);
+	
+			// specify chart configuration item and data
+			var option = {
+				tooltip: {},
+				legend: {
+					data:['World Stats']
+				},
+				xAxis: {
+					data: [
+						// "cases",
+						// "confirmed",
+						// "deaths",
+						// "recovered",
+						// "active",
+						// "critical",
+						"casesPerOneMillion",
+						"todayCases",
+						"todayDeaths"
+					]
+				},
+				yAxis: {},
+				series: [{
+					name: 'World Stats',
+					type: 'bar',
+					// data: [5, 20, 36, 10, 10, 20]
+					data: worldData
+				}]
+			};
+
+			console.log('Chart options:', option);
+
+			// use configuration item and data specified to show chart
+			myChart2.setOption(option);
+		});
 	</script>
 </div>
 <div class="ui basic segment">
