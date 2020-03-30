@@ -71,6 +71,12 @@ To facilitate the interaction between helpers and people in need, everything sho
 
 Citizens could be the "first" users, with a less accurate description of health data, so they can get help and stay at home. When enough data is accumulated, complete data can be used by scientists and institutions.tay at home. When enough data is accumulated, complete data can be used by scientists and institutions.tay at home. When enough data is accumulated, complete data can be used by scientists and institutions.tay at home. When enough data is accumulated, complete data can be used by scientists and institutions.
 
+## Prototype
+
+![image](https://user-images.githubusercontent.com/9881407/77881863-21ef9e00-7260-11ea-895a-00c8c95dc531.png)
+
+> The preview might change during the development.
+
 ## Technical Requirements:
 
 ### Frontend web
