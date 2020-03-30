@@ -8,9 +8,10 @@ body.pushable.extended {
 	height: calc(100% + 500px);
 }
 
-/* body.pushable {
-	background: #545454;
-} */
+/* Dirty pushable background patch */
+body.pushable {
+	background: #FFFFFF;
+}
 
 /* body.pushable body.pusher.dimmed {
 	background: #545454;
@@ -47,6 +48,11 @@ main .ui.cards {
 
 .hide {
 	display: none !important;
+}
+
+.ui.horizontal.list.centered {
+	width: 100%;
+	text-align: center;
 }
 
 .scrolling-table {
@@ -100,6 +106,7 @@ main .ui.cards {
 	transition: background-color .8s, color .8s;
 } */
 
+/* Large */
 @media only screen and (min-width: 900px) {
 	footer div.large.screen.only {
 		display: block !important;
@@ -108,6 +115,8 @@ main .ui.cards {
 		display: none !important;
 	}
 }
+
+/* Tablet */
 @media only screen and (max-width: 900px) {
 	/* body.pushable {
 		background: #FFFFFF;
@@ -136,7 +145,12 @@ main .ui.cards {
 	footer div.mobile.only {
 		display: block !important;
 	}
+	.footer.segment {
+		padding: 2em 0em;
+	}
 }
+
+/* Mobile */
 @media only screen and (max-width: 700px) {
 	/* body.pushable {
 		background: #FFFFFF;
@@ -164,5 +178,8 @@ main .ui.cards {
 	}
 	footer div.mobile.only {
 		display: block !important;
+	}
+	.footer.segment {
+		padding: 2em 0em;
 	}
 }
