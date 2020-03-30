@@ -185,6 +185,7 @@ covmunity.app = {
 
 		//
 		// TODO: Implement this: https://developers.google.com/maps/documentation/javascript/examples/layer-heatmap
+		// TODO: Implement data source
 		//
 
 		var myLatLng = {
@@ -232,6 +233,12 @@ covmunity.app = {
 		$('#map').transition('fade up');
 		
 		console.groupEnd();
+	},
+	displayHeatMap: function () {
+		const self = this;
+		this.getLocation(function (data) {
+			self.getHeatMap(data);
+		});
 	},
 	displayMap: function () {
 		const self = this;
