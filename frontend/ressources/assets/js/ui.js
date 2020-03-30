@@ -37,6 +37,9 @@ $(document).ready(function() {
 	// Accordions
 	$('.ui.accordion').accordion();
 
+	// Checkboxes
+	$('.ui.checkbox').checkbox();
+
 	// Dismissable messages
 	$('.message .close').on('click', function() {
 		$(this).closest('.message').transition('fade');
@@ -75,12 +78,12 @@ $(document).ready(function() {
 	// ui theme elements
 	var $themeElements = [
 		{ name: 'dividingHeaders', target: $('.ui.dividing.header') },
-		{ name: 'iconHeaders', target: $('.ui.icon.header') },
+		// { name: 'iconHeaders', target: $('.ui.icon.header') },
 		{ name: 'tooltippedIcons', target: $('.tooltipped.icon') },
 		{ name: 'cardsContainer', target: $('.ui.cards') },
 		{ name: 'cards', target: $('.ui.card') },
 		{ name: 'dropdowns', target: $('.ui.dropdown') },
-		{ name: 'fixedMenu', target: $('.ui.top.fixed.menu') },
+		// { name: 'fixedMenu', target: $('.ui.top.fixed.menu') },
 		{ name: 'breadcrumb', target: $('.ui.breadcrumb') },
 		{ name: 'tables', target: $('.ui.table') },
 		{ name: 'segments', target: $('.ui.segment').not('.inverted') },
