@@ -132,7 +132,60 @@ covmunity.app = {
 	getMap: function (location) {
 		console.group('Map');
 		console.log('Loading map with this data.', location);
+
+		var myLatLng = {
+			lat: location.latitude,
+			lng: location.longitude
+		};
+
+		console.log('Map centered too:', myLatLng);
 		
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 4,
+			center: myLatLng
+		});
+
+		var contentString = '' +
+			'<div id="content">' +
+			'<h4 class="ui header" style="margin-top: 1px; margin-bottom: 0;">' +
+			'<i class="search location icon"></i>' +
+			'<div class="content">Location</div>' +
+			'</h4>' +
+			'<div class="ui bulleted list" style="margin-top: 10px;">' +
+			'<div class="item">Country: ' + location.country_name + '</div>' +
+			'<div class="item">Region: ' + location.region_name + '</div>' +
+			'<div class="item">City: ' + location.city + '</div>' +
+			'<div class="item">Zip: ' + location.zip + '</div>' +
+			'</div>';
+			'</div>';
+
+		var infowindow = new google.maps.InfoWindow({
+			content: contentString
+		});
+
+		var marker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			title: 'Hello World!'
+		});
+
+		marker.addListener('click', function() {
+			infowindow.open(map, marker);
+		});
+
+		// Showing map with transition
+		// See: https://fomantic-ui.com/modules/transition.html
+		$('#map').transition('fade up');
+		
+		console.groupEnd();
+	},
+	getHeatMap: function (location) {
+		console.group('Heat Map');
+		console.log('Loading map with this data.', location);
+
+		//
+		// TODO: Implement this: https://developers.google.com/maps/documentation/javascript/examples/layer-heatmap
+		//
 
 		var myLatLng = {
 			lat: location.latitude,
