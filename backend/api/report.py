@@ -1,4 +1,6 @@
-from flask import Blueprint, request
+import random
+
+from flask import Blueprint, request, Response, json, stream_with_context
 from flask_login import current_user, login_required
 
 from sqlalchemy.sql import func
@@ -81,8 +83,65 @@ def location_from_request(request):
     point = "POINT({} {})".format(latitude, longitude)
     return point
 
-
 @bp.route('/query', methods=('GET', 'POST'))
 @login_required
 def query():
     pass
+
+@bp.route('/query/random', methods=('GET', 'POST'))
+@login_required
+def query_random():
+    """
+    This endpoints randomly generates clusters of points around a central point
+
+    Request can be customized with POST data like:
+    {
+      "latitude": 47.366667,
+      "longitude": 8.55,
+      "seed": 42,
+      "clusters_count": 10
+    }
+    """
+    center_lat = 47.366667
+    center_lon = 8.55
+    seed = 42
+    clusters_count = 10
+    if request.json:
+        center_lat = float(request.json.get('latitude', center_lat))
+        center_lon = float(request.json.get('longitude', center_lon))
+        seed = int(request.json.get('seed', seed))
+        clusters_count = int(request.json.get('clusters', clusters_count))
+
+    random.seed(seed)
+
+    clusters_max_distance = 0.50 # max "distance", in degrees
+    points_sigma = 0.10          # sigma for the gauss distribution of points, in degrees
+
+    # Generate 10 clusters
+    clusters = []
+    def deviate(orig, max_deviation):
+        int_max_deviation = max_deviation * 1000
+        deviation = random.randint(-int_max_deviation, int_max_deviation)
+        return orig + float(deviation) / int_max_deviation
+
+    for i in range(clusters_count):
+        clusters.append(
+            (
+                deviate(center_lat, clusters_max_distance),
+                deviate(center_lon, clusters_max_distance),
+                random.randint(10, 1000),
+            )
+        )
+
+    # Stream data points
+    def generate():
+        def gauss_deviate(mu):
+            return random.gauss(mu, points_sigma)
+
+        for cluster in clusters:
+            lat, lon, n = cluster
+            for j in range(n):
+                yield json.dumps([
+                    gauss_deviate(lat), gauss_deviate(lon),
+                ]) + "\n"
+    return Response(stream_with_context(generate()), mimetype='application/json')
