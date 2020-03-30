@@ -19,9 +19,9 @@
 	</head>
 	<body>
 		<!-- Top Following Menu -->
-		<div class="ui top fixed menu transition hidden">
+		<div class="ui top fixed inverted violet menu transition hidden">
 			<div class="ui fluid container">
-				<div class="header link item"><a href="/"><i class="hands helping icon"></i>Covmunity Project</a></div>
+				<div class="header link item"><a href="/dashboard"><i class="hands helping icon"></i>Covmunity Project</a></div>
 				<div class="right menu">
 					<div class="ui item animated labeled icon button" id="dark-theme">
 						<div class="visible content">
@@ -48,14 +48,14 @@
 		</div>
 
 		<!-- Sidebar Menu -->
-		<div class="ui left inverted sidebar vertical menu">
+		<div class="ui left inverted violet sidebar vertical menu">
 			<div class="header link item">
-				<a href="/">
+				<a href="/dashboard">
 					<i class="hands helping icon" style="float: left; margin: 0 0.35714286em 0 0;"></i>
 					Covmunity Project
 				</a>
 			</div>
-			<a href="/" class="item">
+			<a href="/dashboard" class="item">
 				<i class="home icon" style="float: left; margin: 0 0.35714286em 0 0;"></i>
 				Home
 			</a>
@@ -71,11 +71,15 @@
 				<i class="map marked alternate icon" style="float: left; margin: 0 0.35714286em 0 0;"></i>
 				Maps
 			</a>
+			<a href="/profile" class="item">
+				<i class="user alternate icon" style="float: left; margin: 0 0.35714286em 0 0;"></i>
+				Profile
+			</a>
 			<a href="/help" class="item">
 				<i class="question circle outline icon" style="float: left; margin: 0 0.35714286em 0 0;"></i>
 				Help
 			</a>
-			<a href="#!" onclick="window.location.reload();" class="item">
+			<a href="#!" onclick="covmunity.app.reload();" class="item">
 				<i class="redo icon" style="float: left; margin: 0 0.35714286em 0 0;"></i>
 				Refresh
 			</a>
@@ -87,7 +91,7 @@
 						<i class="dropdown icon" style="float: right;"></i>
 					</div>
 					<div class="content">
-						<div class="ui vertical inverted menu">
+						<div class="ui vertical inverted violet menu">
 							<a class="item"><i class="us flag"></i>English</a>
 							<a class="item"><i class="fr flag"></i>French</a>
 							<a class="item"><i class="de flag"></i>German</a>
@@ -103,12 +107,12 @@
 		<!-- Page Contents -->
 		<div class="pusher">
 			<!-- Top Static Menu -->
-			<header class="ui inverted vertical segment">
+			<header class="ui inverted violet vertical segment">
 				<div class="ui fluid container">
 					<div class="ui large secondary inverted menu">
 						<a class="toc item"><i class="sidebar icon"></i></a>
-						<div class="header link item large screen only"><a href="/"><i class="hands helping icon"></i>Covmunity Project</a></div>
-						<div class="header link item mobile only"><a href="/"><i class="hands helping icon"></i>Covmunity Project</a></div>
+						<div class="header link item large screen only"><a href="/dashboard"><i class="hands helping icon"></i>Covmunity Project</a></div>
+						<div class="header link item mobile only"><a href="/dashboard"><i class="hands helping icon"></i>Covmunity Project</a></div>
 						<div class="right menu">
 							<div class="ui item animated labeled icon button" id="dark-theme">
 								<div class="visible content">
@@ -130,7 +134,7 @@
 									Dark
 								</div>
 							</div>
-							<a href="/" class="item active"><i class="home icon"></i>Home</a>
+							<a href="/dashboard" class="item active"><i class="home icon"></i>Home</a>
 							<a href="#!" class="item"><i class="question circle outline icon"></i>Help</a>
 							<a href="#!" onclick="window.location.reload();" class="item"><i class="redo icon"></i>Refresh</a>
 							<div class="ui inverted dropdown item">
@@ -151,68 +155,15 @@
 
 			<!-- Main content-->
 			<main class="ui vertical basic very padded segment">
-				<div id="variable-container" class="ui container">
-					<h2 class="ui dividing header">Covmunity Project</h2>
-					<!-- Feel free to change 'four' by more or less cards -->
-					<div class="ui four stackable cards">
-						<!-- <a class="ui raised link card" href="#!"> -->
-						<a class="ui raised link card" href="/form">
-							<div class="center aligned content">
-								<h4 class="ui icon primary header">
-									<i class="notes medical icon"></i>
-									<div class="content">
-										Form
-										<div class="sub header">Covmunity Form.</div>
-									</div>
-								</h4>
-							</div>
-						</a>
-						<!-- <a class="ui raised link card" href="#!"> -->
-						<a class="ui raised link card" href="/charts">
-							<div class="center aligned content">
-								<h4 class="ui icon primary header">
-									<i class="poll icon"></i>
-									<div class="content">
-										Charts
-										<div class="sub header">See COVID-19 evolution charts.</div>
-									</div>
-								</h4>
-							</div>
-						</a>
-						<!-- <a class="ui raised link card" href="#!"> -->
-						<a class="ui raised link card" href="/maps">
-							<div class="center aligned content">
-								<h4 class="ui icon primary header">
-									<i class="map marked alternate icon"></i>
-									<div class="content">
-										Maps
-										<div class="sub header">See COVID-19 evolution maps.</div>
-									</div>
-								</h4>
-							</div>
-						</a>
-						<!-- <a class="ui raised link card" href="#!"> -->
-						<a class="ui raised link card" href="/help">
-							<div class="center aligned content">
-								<h4 class="ui icon primary header">
-									<i class="question circle outline icon"></i>
-									<div class="content">
-										Help
-										<div class="sub header">Covmunity Help.</div>
-									</div>
-								</h4>
-							</div>
-						</a>
-					</div>
-				</div>
+				<div id="variable-container" class="ui container"></div>
 			</main>
 
 			<!-- Footer -->
 			<footer class="ui inverted violet vertical footer segment">
 				<div class="ui container">
 					<div class="mobile only">
-						<div class="ui horizontal inverted link list" style="width: 100%; text-align: center;">
-							<div class="item">
+						<div class="ui horizontal inverted link list centered">
+							<!-- <div class="item">
 								<a href="/form">
 									<div class="center aligned content">
 										<h4 class="ui icon primary header">
@@ -221,7 +172,7 @@
 										</h4>
 									</div>
 								</a>
-							</div>
+							</div> -->
 							<div class="item">
 								<a href="/charts">
 									<div class="center aligned content">
@@ -242,6 +193,16 @@
 									</div>
 								</a>
 							</div>
+							<!-- <div class="item">
+								<a href="/profile">
+									<div class="center aligned content">
+										<h4 class="ui icon primary header">
+											<i class="user alternate icon"></i>
+											<div class="content">Profile</div>
+										</h4>
+									</div>
+								</a>
+							</div> -->
 							<div class="item">
 								<a href="/help">
 									<div class="center aligned content">
