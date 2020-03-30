@@ -101,6 +101,12 @@ main .ui.cards {
 	display: none;
 }
 
+#map {
+	width: 51.5vw;
+	height: 300px;
+	display: none;
+}
+
 /* It's slow down the whole UI... */
 /* .ui.segment, .ui.menu, .ui.table {
 	transition: background-color .8s, color .8s;
@@ -113,6 +119,11 @@ main .ui.cards {
 	}
 	footer div.mobile.only {
 		display: none !important;
+	}
+
+	/* Map adjustments */
+	#map {
+		width: 51.5vw;
 	}
 }
 
@@ -148,6 +159,11 @@ main .ui.cards {
 	.footer.segment {
 		padding: 2em 0em;
 	}
+
+	/* Map adjustments */
+	#map {
+		width: 85vw;
+	}
 }
 
 /* Mobile */
@@ -181,5 +197,10 @@ main .ui.cards {
 	}
 	.footer.segment {
 		padding: 2em 0em;
+	}
+
+	/* Map adjustments */
+	#map {
+		width: 85vw;
 	}
 }
