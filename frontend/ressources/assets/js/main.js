@@ -129,6 +129,16 @@ covmunity.app = {
 			}
 		});
 	},
+	getDataSource: function(callback) {
+		console.log('Importing data source...');
+		$.getJSON('https://corona-stats.online/?format=json', function(data) {
+			console.log('Data source imported:');
+			console.log(JSON.stringify(data, null, 2));
+			if (callback && typeof callback === 'function') {
+				callback(data);
+			}
+		});
+	},
 	getMap: function (location) {
 		console.group('Map');
 		console.log('Loading map with this data.', location);
