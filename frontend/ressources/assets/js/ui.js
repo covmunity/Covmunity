@@ -237,4 +237,9 @@ $(document).ready(function() {
 				break;
 		}
 	}
+
+	// Dirty 'applyTheme' function wrap...
+	if (covmunity) {
+		covmunity.app.applyTheme = applyTheme;
+	}
 });
