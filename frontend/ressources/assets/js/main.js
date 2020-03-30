@@ -134,23 +134,27 @@ covmunity.app = {
 		console.log('Loading map with this data.', location);
 		
 
-        var myLatLng = {
+		var myLatLng = {
 			lat: location.latitude,
 			lng: location.longitude
 		};
 
 		console.log('Map centered too:', myLatLng);
-		document.getElementById('map').style.display = 'block';
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: myLatLng
-        });
-
-        var marker = new google.maps.Marker({
-          position: myLatLng,
-          map: map,
-          title: 'Hello World!'
+		
+		var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 4,
+			center: myLatLng
 		});
+
+		var marker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			title: 'Hello World!'
+		});
+
+		// Showing map with transition
+		// See: https://fomantic-ui.com/modules/transition.html
+		$('#map').transition('fade up');
 		
 		console.groupEnd();
 	},
