@@ -16,17 +16,24 @@
  *   Fix the code and implement jquery element caching.
  */
 
+var $healthySection = $('#healthysection');
+var $healthyOrNot = $('#healthyornot');
+var $healthyForm = $('#healthyform');
 
-$('#healthysection').off('click').on('click', function onclick_healthysection(){
-    $('#healthyornot').removeClass('visible');
-    $('#healthyornot').addClass('hidden');
-    $('#healthyform').toggleClass('hidden');
+
+$healthySection.off('click').on('click', function onclick_healthysection(){
+    $healthyOrNot.removeClass('visible');
+    $healthyOrNot.addClass('hidden');
+    $healthyForm.toggleClass('hidden');
 });
 
-$('#sicksection').off('click').on('click', function onclick_sicksection(){
-    $('#healthyornot').removeClass('visible');
-    $('#healthyornot').addClass('hidden');
-    $('#formsymptoms').toggleClass('hidden');
+var $sickSection = $('#sicksection'); 
+var $formSymptoms = $('#formsymptoms');
+
+$sickSection.off('click').on('click', function onclick_sicksection(){
+    $healthyOrNot.removeClass('visible');
+    $healthyOrNot.addClass('hidden');
+    $formSymptoms.toggleClass('hidden');
 
     // Detect selected symptoms and adjust navigation
     let checkedSymptoms = 0;
@@ -95,52 +102,60 @@ $('#sicksection').off('click').on('click', function onclick_sicksection(){
     });
 });
 
-$('#forwardnavsymptomsform').off('click').on('click', function forwardnavsymptomsform(){
-    $('#formsymptoms').toggleClass('hidden');
-    $('#userhelpsornot').toggleClass('hidden');
+var $forwardNavSymptomsForm = $('#forwardnavsymptomsform');
+var $usersHelpOrNot = $('#userhelpsornot');
+
+$forwardNavSymptomsForm.off('click').on('click', function forwardnavsymptomsform(){
+    $formSymptoms.toggleClass('hidden');
+    $usersHelpOrNot.toggleClass('hidden');
 });
 
-$('#backnavsymptomsform').off('click').on('click', function backnavsymptomsform(){
-    $('#healthyornot').removeClass('hidden');
-    $('#healthyornot').addClass('visible');
+var $backNavSymptomsForm = $('#backnavsymptomsform');
+
+$backNavSymptomsForm.off('click').on('click', function backnavsymptomsform(){
+    $healthyOrNot.removeClass('hidden');
+    $healthyOrNot.addClass('visible');
 
 
-    $('#formsymptoms').toggleClass('hidden');
+    $formSymptoms.toggleClass('hidden');
 });
 
+var $denialHealthy = $('#denieallhealthy'); 
 
-$('#denieallhealthy').off('click').on('click', function denieallhealthy(){
+$denialHealthy.off('click').on('click', function denieallhealthy(){
 
-      $('#healthyform').toggleClass('hidden');
-      $('#userhelpsornot').toggleClass('hidden');
+      $healthyForm.toggleClass('hidden');
+      $usersHelpOrNot.toggleClass('hidden');
 });
 
+var $confirmAllHealthy = $('#confirmallhealthy');
+var $allHealthyForm = $('#allhealthyform');
 
-$('#confirmallhealthy').off('click').on('click', function confirmalllhealthy(){
+$confirmAllHealthy.off('click').on('click', function confirmalllhealthy(){
 
-    $('#healthyform').toggleClass('hidden');
-    $('#allhealthyform').toggleClass('hidden');
+    $healthyForm.toggleClass('hidden');
+    $allHealthyForm.toggleClass('hidden');
 });
 
 
 
 $('#backnavuserhelpornot').off('click').on('click', function backnavuserthelpornot(){
-
-    $('#userhelpsornot').toggleClass('hidden');
-    $('#formsymptoms').toggleClass('hidden');
+    $usersHelpOrNot.toggleClass('hidden');
+    $healthyForm.toggleClass('hidden');
 });
 
 
 $('#backnavhealthyform').off('click').on('click', function backnavhealthyform(){
 
-    $('#healthyform').toggleClass('hidden');
+    $healthyForm.toggleClass('hidden');
 
-    $('#healthyornot').removeClass('hidden');
-    $('#healthyornot').addClass('visible');
+    $healthyOrNot.removeClass('hidden');
+    $healthyOrNot.addClass('visible');
 });
 
 $('#backnavallhealthy').off('click').on('click', function backnavhealthyform(){
 
-    $('#userhelpsornot').toggleClass('hidden');    
+    $allHealthyForm.toggleClass('hidden');
+    $healthyForm.toggleClass('hidden');
 });
 

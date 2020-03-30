@@ -1,10 +1,4 @@
-/* This part does not work. It is bypassed by the framework. */
-#fevercheckfield {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid white;
-}
-/* It should be removed I guess. */
+
 
 /* This part does working. */
 .hidden{
