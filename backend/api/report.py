@@ -1,6 +1,6 @@
 import random
 
-from flask import Blueprint, request, Response, json, stream_with_context
+from flask import Blueprint, request, Response, json, stream_with_context, jsonify
 from flask_login import current_user, login_required
 
 from sqlalchemy.sql import func
@@ -102,10 +102,10 @@ def query_random():
       "clusters_count": 10
     }
     """
-    center_lat = 47.366667
-    center_lon = 8.55
-    seed = 42
-    clusters_count = 10
+    center_lat = 47.05
+    center_lon = 8.3
+    seed = 1
+    clusters_count = 20
     if request.json:
         center_lat = float(request.json.get('latitude', center_lat))
         center_lon = float(request.json.get('longitude', center_lon))
@@ -114,7 +114,7 @@ def query_random():
 
     random.seed(seed)
 
-    clusters_max_distance = 0.50 # max "distance", in degrees
+    clusters_max_distance = 0.30 # max "distance", in degrees
     points_sigma = 0.10          # sigma for the gauss distribution of points, in degrees
 
     # Generate 10 clusters
@@ -129,7 +129,7 @@ def query_random():
             (
                 deviate(center_lat, clusters_max_distance),
                 deviate(center_lon, clusters_max_distance),
-                random.randint(10, 1000),
+                random.randint(10, 2000),
             )
         )
 
@@ -141,7 +141,6 @@ def query_random():
         for cluster in clusters:
             lat, lon, n = cluster
             for j in range(n):
-                yield json.dumps([
-                    gauss_deviate(lat), gauss_deviate(lon),
-                ]) + "\n"
-    return Response(stream_with_context(generate()), mimetype='application/json')
+                yield {"lat": gauss_deviate(lat), "lon": gauss_deviate(lon)}
+    #return Response(stream_with_context(generate()), mimetype='application/json')
+    return jsonify(list(generate()))

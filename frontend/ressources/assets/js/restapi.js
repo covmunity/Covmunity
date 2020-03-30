@@ -1,4 +1,4 @@
-const host = 'http://127.0.0.1:8888';
+const host = '';
 
 function getAccountProfile() {
     url = host + '/account/profile'
@@ -8,6 +8,11 @@ function getAccountProfile() {
 function getReportQuery() {
     url = host + '/report/query'
     return get(url);
+}
+
+function getRandomReportLocations(data = {}) {
+    url = host + '/report/query/random'
+    return post(url, data)
 }
 
 function getStatic(path) {
@@ -54,6 +59,7 @@ async function get(url) {
     const response = await fetch(url, {
         method: 'GET', 
         mode: 'no-cors',
+        credentials: 'same-origin',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -64,9 +70,10 @@ async function get(url) {
 }
 
 async function post(url, data = {}) {
-    const response = await fetch(url, {
+    let response = await fetch(url, {
       method: 'POST',
       mode: 'no-cors',
+      credentials: 'same-origin',
       headers: {
         'Content-Type': 'application/json'
       },

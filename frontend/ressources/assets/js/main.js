@@ -238,6 +238,21 @@ covmunity.app = {
 			infowindow.open(map, marker);
 		});
 
+		var convertToGoogleLatLng = function(locations) {
+			var googleLocations = []
+			for (var i in locations) {
+				var point = locations[i] 
+				googleLocations.push(new google.maps.LatLng(point.lat, point.lon));
+			}
+			return googleLocations;
+		}
+		getRandomReportLocations().then(function(locations) {
+			var heatMap = new google.maps.visualization.HeatmapLayer({
+				data: convertToGoogleLatLng(locations),
+				map: map,
+			});
+		})
+
 		// Showing map with transition
 		// See: https://fomantic-ui.com/modules/transition.html
 		$('#map').transition('fade up');
@@ -324,7 +339,7 @@ covmunity.pages = {
 		covmunity.app.showSection(ctx.pathname);
 
 		// display map
-		covmunity.app.displayMap();
+		covmunity.app.displayHeatMap();
 	},
 	help: function (ctx) {
 		console.group('Page.js');
