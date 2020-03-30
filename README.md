@@ -72,6 +72,7 @@ Citizens could be the "first" users, with a less accurate description of health 
 
 ## Prototype
 
+![dashboard](https://user-images.githubusercontent.com/58235455/77930265-f645d580-72aa-11ea-86dd-15cfc031fe5b.png)
 ![image](https://user-images.githubusercontent.com/9881407/77881863-21ef9e00-7260-11ea-895a-00c8c95dc531.png)
 
 > The preview might change during the development.
