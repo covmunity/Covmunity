@@ -4,79 +4,94 @@
 <a id="navigateforward" href="#!" onclick="window.history.forward();" class="arrow alternate circle left outline icon">Forward</a> -->
 
 
-<div id="healthyornot" class="visible">
-  <div id="subtitle">
-    <label>How do you feel today ?</label>
+<div id="healthyornot" class="ui basic center aligned segment visible">
+  <div id="subtitle" class="ui basic segment">
+    <h4>How do you feel today ?</h4>
   </div>
 
-  <div id="choicehealthyornot">
-
-    <button class="ui button" id="healthysection">
-      I am healthy
-    </button>
-    <button class="ui button" id="sicksection">
-      I feel sick
-    </button>
-
+  <div id="choicehealthyornot" class="ui basic segment">
+    <a class="ui link" id="healthysection">
+      <div class="ui inverted violet circular segment">
+        <h3 class="ui inverted header">
+          I am healthy
+        </h3>
+      </div>
+    </a>
+    <a class="ui link" id="sicksection">
+      <div class="ui circular segment">
+        <h3 class="ui header">
+          I feel sick
+        </h3>
+      </div>
+    </a>
   </div>
-
 </div>
 
+<div id="formsymptoms" class="ui basic segment hidden">
+  <div id="subtitle" class="ui basic center aligned segment">
+      <h4>Which symptoms do you have ?</h4>
+  </div>
 
-
-<div id="formsymptoms" class="hidden">
-
-    <div id="subtitle">
-        <label>Which symptoms do you have ?</label>
-    </div>
-
+  <div class="ui form">
+    <div class="inline field">
       <div class="ui checkbox">
         <input type="checkbox" name="Cough" id="checkcough">
         <label>Cough</label>
       </div>
+    </div>
+    <div class="inline field">
       <div class="ui checkbox">
         <input type="checkbox" name="RunnyNose" id="checkrunnynose">
         <label>Runny Nose</label>
       </div>
-      <div id="fevercheckfield">
+    </div>
+    <!-- <div id="fevercheckfield"> -->
+      <div class="inline field">
         <div class="ui checkbox">
             <input type="checkbox" name="Fever" id="checkFever">
             <label>Fever</label>
         </div>
-        <div id="feverfield">
-            <!-- <label></label> -->
-            <input type="number" placeholder="Temperature (C°)">
-          </div>
       </div>
-      
+      <div class="field">
+        <div id="feverfield" class="hidden">
+            <input type="number" placeholder="Temperature (C°)">
+        </div>
+      </div>
+    <!-- </div> -->
+    <div class="inline field">
       <div class="ui checkbox">
         <input type="checkbox" name="Headache" id="checkheadache">
         <label>Headache</label>
       </div>
+    </div>
 
-      <div class="othercheckfield">
+    <!-- <div class="othercheckfield"> -->
+      <div class="inline field">
         <div class="ui checkbox">
-            <input type="checkbox" name="Other" id="checkother">
+            <input type="checkbox" name="Other" id="checkOther">
             <label>Other</label>
         </div>
-        <div id="otherfield">
-            <!-- <label></label> -->
-            <input type="text" placeholder="Separate by ','">
-          </div>
       </div>
-
-  <div id="navigationsymptomsform">
-
-    <i class="arrow alternate circle left outline icon" id="backnavsymptomsform"></i>
-
-    <i class="arrow alternate circle right outline icon" id="forwardnavsymptomsform"></i>
-
+      <div class="field">
+        <div id="otherfield" class="hidden">
+          <input type="text" placeholder="Separate by ','">
+        </div>
+      </div>
+    <!-- </div> -->
   </div>
-      
+
+  <div id="navigationsymptomsform" class="ui basic segment" style="margin-top: 8em;">
+    <button class="ui circular blue icon right floated button" style="display: none;" id="forwardnavsymptomsform">
+      <i class="arrow alternate right icon"></i>
+    </button>
+    <button class="ui circular blue icon left floated button" id="backnavsymptomsform">
+      <i class="arrow alternate left icon"></i>
+    </button>
+  </div>
 </div>
 
 
-<div id="userhelpsornot" class="hidden">
+<div id="userhelpsornot" class="ui basic center aligned segment hidden">
 
   <div id="healthrecommondation">
     <label>You and anyone living with you should stay at home and keep track of your health.</label>
@@ -102,7 +117,7 @@
   </div>
 </div>
 
-<div id="healthyform" class="hidden">
+<div id="healthyform" class="ui basic center aligned segment hidden">
 
 
   <div class="question">
@@ -127,7 +142,7 @@
 </div>
 
 
-<div id="allhealthyform" class="hidden">
+<div id="allhealthyform" class="ui basic center aligned segment hidden">
 
 
   <div class="question">
