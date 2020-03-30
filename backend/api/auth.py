@@ -24,10 +24,6 @@ class OAuth(OAuthConsumerMixin, db.Model):
     user_id = db.Column(db.String(36), db.ForeignKey(User.id), nullable=False)
     user = db.relationship(User)
 
-@oauth_before_login.connect
-def before_login(blueprint, url):
-    session["next"] = request.args.get("next")
-
 google = make_google_blueprint(scope="openid https://www.googleapis.com/auth/userinfo.email")
 google.storage = SQLAlchemyStorage(OAuth, db.session, user=current_user)
 

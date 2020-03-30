@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, jsonify, redirect, url_for, flash, request, session, abort
 from flask import get_flashed_messages, render_template
-from flask_login import login_required, current_user, logout_user, LoginManager, login_url
+from flask_login import login_required, current_user, login_user, logout_user, LoginManager
 
 from . import status, report, volunteer, account, auth
 from .db import db, db_cli
@@ -18,7 +18,7 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
 
         # db settings
-        SQLALCHEMY_DATABASE_URI='mysql+mysqlconnector://root:dev@localhost/covmunity',
+        SQLALCHEMY_DATABASE_URI='mysql+mysqlconnector://root:dev@localhost:3307/covmunity',
         SQLALCHEMY_TRACK_MODIFICATIONS=True,
     )
 
@@ -55,6 +55,7 @@ def create_app(test_config=None):
     @app.route('/charts')
     @app.route('/maps')
     @app.route('/help')
+    @login_required
     def show_dashboard():
         return render_template('index.html')
 
@@ -65,7 +66,9 @@ def create_app(test_config=None):
             next_url = url_for(session.pop('next'))
             return redirect(next_url)
 
-        return jsonify(get_flashed_messages())
+        # XXX: Do something with flashed messages
+        get_flashed_messages()
+        return show_dashboard()
 
     return app
 
@@ -74,17 +77,20 @@ def setup_login(app):
     login_manager = LoginManager()
     login_manager.init_app(app)
 
+    def test_user(user_id):
+        user = account.User.query.get(user_id)
+        if not user:
+            user = account.User(id=user_id)
+            db.session.add(user)
+            db.session.commit()
+        return user
+
     @login_manager.request_loader
     def load_user_from_request(request):
         if app.env != 'production':
             user_id = request.headers.get("X-User-ID")
             if user_id:
-                user = account.User.query.get(user_id)
-                if not user:
-                    user = account.User(id=user_id)
-                    db.session.add(user)
-                    db.session.commit()
-                return user
+                return test_user(user_id)
         return None
 
     @login_manager.user_loader
@@ -93,20 +99,23 @@ def setup_login(app):
 
     @login_manager.unauthorized_handler
     def unauthorized():
-        abort(401)
+        session['next'] = request.endpoint
+        return redirect(url_for('login'))
 
     @app.route("/login", methods=['GET', 'POST'])
     def login():
-        print(request.form)
         if current_user is not None:
             error = None
             if request.method == 'POST':
                 if request.form['email'] != 'admin@admin.com' or request.form['password'] != '123456789':
                     error = 'Invalid Credentials. Please try again.'
                 else:
-                    return render_template('index.html')
+                    user = test_user('test')
+                    login_user(user)
+                    return redirect(url_for('root'))
             return render_template('ressources/pages/Auth/login.html', error=error)
         return render_template('index.html')
+
 
     @app.route("/logout")
     def logout():
