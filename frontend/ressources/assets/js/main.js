@@ -5,7 +5,11 @@ var covmunity = covmunity || {};
 
 // dirty config structure
 covmunity.config = {
-	debug: true // can be used to enable / disable console output
+	debug: true, // can be used to enable / disable console output
+	keys: { // encoded keys
+		maps: 'TlZtbkZsTkNrY3BZaVJHdFBLVWhHeUVZOUF5TmR3TV9hQ1ZyTEt4',
+		geo: 'b3I0M3FuODVxMDlvMjdyMzQ0bjVvNW4xcjFvOHI2OTU='
+	}
 };
 
 // dirty frontend -> backend api code
@@ -117,8 +121,8 @@ covmunity.app = {
 		});
 	},
 	getLocation: function(callback) {
-		// TODO: Put the key somewhere else...
-		const apiKey = '097b8d59d4ded433de83da780f42127c';
+		// Store the decoded key in memory
+		const apiKey = this.decode(covmunity.config.keys.geo);
 
 		console.log('Searching user location...');
 		$.getJSON('http://api.ipstack.com/check?access_key=' + apiKey + '&format=1', function(data) {
@@ -276,7 +280,84 @@ covmunity.app = {
 		
 		// Process current URL
 		page(window.location.pathname);
-	}
+	},
+	// Escape special characters by encoding them into HTML entities
+	// https://stackoverflow.com/a/46685127
+	escapeHtml: function(str) {
+		var div = document.createElement('div');
+		div.innerText = str;
+		return div.innerHTML;
+	},
+	getLanguage: function () {
+		return navigator.language || navigator.userLanguage;
+	},
+	// Custom Base64 Decoding functions With Unicode support
+	// https://forums.enyojs.com/discussion/427/please-please-please-dont-use-atob-btoa
+	b64DecodeUnicodeCustom: function (str) {
+		return decodeURIComponent(escape(atob(str)));
+	},
+	// Custom Base64 Encoding functions With Unicode support
+	// https://forums.enyojs.com/discussion/427/please-please-please-dont-use-atob-btoa
+	b64EncodeUnicodeCustom: function (str) {
+		return btoa(unescape(encodeURIComponent(str)));
+	},
+	// Pure Vanilla Javascript Rot13 Implementation
+	// https://codereview.stackexchange.com/a/192241
+	rot13: function (str) {
+		return (str+'').replace(/[a-zA-Z]/gi,function(s){
+			return String.fromCharCode(s.charCodeAt(0)+(s.toLowerCase()<'n'?13:-13))
+		})
+	},
+	decode: function (value) {
+		value = this.rot13(this.b64DecodeUnicodeCustom(value));
+		return typeof value === 'undefined' ? false : value;
+	},
+	// Load Javascript code asynchronously or not
+	loadJS: function (src, id, log, async) {
+		return (function (src, id, log, async) {
+			var d = document, js,
+				fjs = d.getElementsByTagName('script')[1],
+				async = (typeof async === 'undefined' ? true : async),
+				log = (typeof log === 'undefined' ? null : log);
+	
+			if (d.getElementById(id)) return;
+			js = d.createElement('script'); js.id = id; js.src = src;
+	
+			if (async) {
+				js.async = true;
+				js.defer = true;
+			}
+	
+			fjs.parentNode.insertBefore(js, fjs);
+	
+			if (log !== null) {
+				console.info(log);
+			}
+			else {
+				console.info('Script loaded.', src);
+			}
+		}(src, id, log, async));
+	},
+	loadMaps: function (callback) {
+		console.warn('Loading Google Maps...');
+
+		// -----------
+		// Load the Google Maps SDK synchronously or asynchronously
+		// -----------
+		this.loadJS(
+			'https://maps.googleapis.com/maps/api/js?key=' + this.decode(covmunity.config.keys.maps) + '&libraries=visualization&language=' + this.getLanguage() + '&callback=covmunity.app.getMapsVersion',
+			'googlemaps-jssdk',
+			'Google Maps SDK loaded.'
+		);
+
+		if (callback && typeof callback === 'function') {
+			callback();
+		}
+	},
+	// Read 'version' property value from 'google' object
+	getMapsVersion: function () {
+		console.info('Google Maps SDK:', google.maps.version);
+	},
 };
 
 // available pages
@@ -338,8 +419,11 @@ covmunity.pages = {
 		// do the display logic here
 		covmunity.app.showSection(ctx.pathname);
 
-		// display map
-		covmunity.app.displayHeatMap();
+		// load maps sdk
+		covmunity.app.loadMaps(function () {
+			// display map
+			covmunity.app.displayHeatMap();
+		});
 	},
 	help: function (ctx) {
 		console.group('Page.js');
