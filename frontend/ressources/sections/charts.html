@@ -31,6 +31,8 @@
 				// data.worldStats.todayCases,
 				// data.worldStats.todayDeaths,
 			);
+
+			console.group('Charts');
 			console.log('Computed data array:', worldData);
 	
 			// specify chart configuration item and data
@@ -63,6 +65,8 @@
 
 			console.log('Chart options:', option);
 
+			console.groupEnd();
+
 			// use configuration item and data specified to show chart
 			myChart1.setOption(option);
 		});
@@ -82,6 +86,8 @@
 				data.worldStats.todayCases,
 				data.worldStats.todayDeaths,
 			);
+
+			console.group('Charts');
 			console.log('Computed data array:', worldData);
 	
 			// specify chart configuration item and data
@@ -113,6 +119,8 @@
 			};
 
 			console.log('Chart options:', option);
+
+			console.groupEnd();
 
 			// use configuration item and data specified to show chart
 			myChart2.setOption(option);

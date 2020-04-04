@@ -140,10 +140,16 @@ covmunity.app = {
 		});
 	},
 	getDataSource: function(callback) {
+		console.group('App');
 		console.log('Importing data source...');
+		console.groupEnd();
+		
 		$.getJSON('https://corona-stats.online/?format=json', function(data) {
+			console.group('App');
 			console.log('Data source imported:');
 			console.log(JSON.stringify(data, null, 2));
+			console.groupEnd();
+			
 			if (callback && typeof callback === 'function') {
 				callback(data);
 			}
@@ -380,7 +386,9 @@ covmunity.pages = {
 
 		// hide sidebar if opened
 		if ($('.ui.sidebar').sidebar('is visible') === true) {
+			console.group('App');
 			console.log('Sidebar is open, closing it.');
+			console.groupEnd();
 			$('.ui.sidebar').sidebar('hide');
 		}
 
