@@ -5,8 +5,11 @@ window.init = {
 	theme: ''
 };
 
-// app ui
-$(document).ready(function() {
+// app ui - Boot stuff when DOM is loaded
+$(function () {
+	console.group('App UI');
+	console.info('DOM Loaded, loading UI code...');
+
 	// Disabled links
 	$('a[href="#!"]').on('click', function(event) {
 		event.preventDefault();
@@ -242,4 +245,7 @@ $(document).ready(function() {
 	if (covmunity) {
 		covmunity.app.applyTheme = applyTheme;
 	}
+
+	// Console end
+	console.groupEnd();
 });

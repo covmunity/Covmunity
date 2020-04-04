@@ -98,16 +98,22 @@ covmunity.app = {
 		var container = '#variable-container';
 		var file = section.replace('/', '');
 		var filePath = 'ressources/sections/' + file + '.html';
+		console.group('Loader');
 		console.log('Loading ' + filePath + '...');
+		console.groupEnd();
 		$.get(filePath)
 		 .done(function (data) {
+			console.group('Loader');
 			console.log('Content loaded.');
+			console.groupEnd();
 			$(container).html(data);
 		 })
 		 .fail(function (jqXHR) {
 			var errorContent = '<h2>Covmunity Unknow Error</h2><a href="#!" onclick="window.history.back();">Back</a>';
 			$(container).html(errorContent);
+			console.group('Loader');
 			console.error('Failed to load content.', jqXHR);
+			console.groupEnd();
 		 });
 	},
 	getIPAddress: function(callback) {
@@ -489,7 +495,7 @@ page('*', covmunity.pages.error); // Will be called on any errors, like 404, 500
 // Boot stuff when DOM is loaded
 $(function () {
 	console.group('App');
-	console.info('DOM Loaded.');
+	console.info('DOM Loaded, loading App code...');
 
 	// Once the DOM is loaded, we are calling our 'page.js' wrapper.
 	// This wrapper will call 'page.js' which then, will parse the defined routes above.
@@ -498,6 +504,3 @@ $(function () {
 
 	console.groupEnd();
 });
-
-// GoogleMaps wrapper
-// window.initMap = covmunity.app.initMap;
