@@ -9,7 +9,8 @@ covmunity.config = {
 	keys: { // encoded keys
 		maps: 'TlZtbkZsTkNrY3BZaVJHdFBLVWhHeUVZOUF5TmR3TV9hQ1ZyTEt4',
 		geo: 'b3I0M3FuODVxMDlvMjdyMzQ0bjVvNW4xcjFvOHI2OTU='
-	}
+	},
+	name: 'Covmunity'
 };
 
 // dirty frontend -> backend api code
@@ -93,7 +94,7 @@ covmunity.app = {
 		// Process current URL
 		page(window.location.pathname);
 	},
-	showSection: function(section) {
+	showSection: function(section, title, context) {
 		if (!section) { section = 'error'; }
 		var container = '#variable-container';
 		var file = section.replace('/', '');
@@ -105,8 +106,17 @@ covmunity.app = {
 		 .done(function (data) {
 			console.group('Loader');
 			console.log('Content loaded.');
-			console.groupEnd();
+			
+			// Display content
 			$(container).html(data);
+
+			// Define window title
+			if (title && context) {
+				covmunity.app.setWindowTitle(covmunity.config.name + ' ' + title, context);
+				console.log('New context:', context);
+			}
+
+			console.groupEnd();
 		 })
 		 .fail(function (jqXHR) {
 			var errorContent = '<h2>Covmunity Unknow Error</h2><a href="#!" onclick="window.history.back();">Back</a>';
@@ -370,6 +380,22 @@ covmunity.app = {
 	getMapsVersion: function () {
 		console.info('Google Maps SDK:', google.maps.version);
 	},
+	setWindowTitle: function (value, ctx) {
+		// Define window title
+		if (value) {
+			console.log('New page title:', value);
+			window.document.title = value;
+		}
+
+		// Define context title
+		if (ctx) {
+			ctx.title = value;
+			ctx.save(); // Save the current context
+		}
+	},
+	getWindowTitle: function () {
+		return window.document.title;
+	},
 };
 
 // available pages
@@ -400,7 +426,7 @@ covmunity.pages = {
 		console.groupEnd();
 
 		// do the display logic here
-		covmunity.app.showSection('/dashboard');
+		covmunity.app.showSection('/dashboard', 'Project', ctx);
 	},
 	account: function (ctx) {
 		console.group('Page.js');
@@ -415,7 +441,8 @@ covmunity.pages = {
 		console.groupEnd();
 
 		// do the display logic here
-		covmunity.app.showSection(ctx.pathname);
+		covmunity.app.showSection(ctx.pathname, 'Form', ctx);
+		// covmunity.app.showSection(ctx.pathname);
 	},
 	charts: function (ctx) {
 		console.group('Page.js');
@@ -423,7 +450,8 @@ covmunity.pages = {
 		console.groupEnd();
 
 		// do the display logic here
-		covmunity.app.showSection(ctx.pathname);
+		covmunity.app.showSection(ctx.pathname, 'Charts', ctx);
+		// covmunity.app.showSection(ctx.pathname);
 	},
 	maps: function (ctx) {
 		console.group('Page.js');
@@ -431,7 +459,8 @@ covmunity.pages = {
 		console.groupEnd();
 
 		// do the display logic here
-		covmunity.app.showSection(ctx.pathname);
+		covmunity.app.showSection(ctx.pathname, 'Maps', ctx);
+		// covmunity.app.showSection(ctx.pathname);
 
 		// load maps sdk
 		covmunity.app.loadMaps(function () {
@@ -445,7 +474,8 @@ covmunity.pages = {
 		console.groupEnd();
 
 		// do the display logic here
-		covmunity.app.showSection(ctx.pathname);
+		covmunity.app.showSection(ctx.pathname, 'Help', ctx);
+		// covmunity.app.showSection(ctx.pathname);
 	},
 	hello: function (ctx) {
 		console.group('Page.js');
