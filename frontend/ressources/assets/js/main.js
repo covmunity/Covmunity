@@ -116,6 +116,9 @@ covmunity.app = {
 				console.log('New context:', context);
 			}
 
+			// Refresh framework components
+			covmunity.app.refreshComponents();
+
 			console.groupEnd();
 		 })
 		 .fail(function (jqXHR) {
@@ -396,6 +399,12 @@ covmunity.app = {
 	getWindowTitle: function () {
 		return window.document.title;
 	},
+	refreshComponents: function () {
+		console.info('Refreshing framework components...');
+
+		// refresh accordions
+		$('.ui.accordion').accordion('refresh');
+	}
 };
 
 // available pages
